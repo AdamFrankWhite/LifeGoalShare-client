@@ -115,3 +115,10 @@ $border-radius: 10px;
   border: 2px black solid;
   border-radius: $border-radius;
 }
+
+.comment-card {
+  width: 80%;
+  margin: 1em auto;
+  border: 2px black solid;
+  border-radius: $border-radius;
+}
