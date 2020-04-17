@@ -5,8 +5,8 @@ import "./App.scss";
 
 //Pages
 import home from "./pages/home";
-import login from "./pages/login";
-import signup from "./pages/signup";
+import SignIn from "./pages/login";
+import SignUp from "./pages/signup";
 
 class App extends React.Component {
   render() {
@@ -16,8 +16,8 @@ class App extends React.Component {
           <NavBar />
           <Switch>
             <Route exact path="/" component={home} />
-            <Route path="/login" component={login} />
-            <Route path="/signup" component={signup} />
+            <Route path="/login" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
           </Switch>
         </Router>
       </div>
