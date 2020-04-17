@@ -91,14 +91,27 @@ $border-radius: 10px;
     }
   }
 }
-.nav-btn:hover {
-  cursor: pointer;
-  background-color: rgba(143, 102, 55, 0.85);
+// .nav-btn:hover {
+//   cursor: pointer;
+//   background-color: rgba(143, 102, 55, 0.85);
+//   transition: 0.2s;
+// }
+
+.nav-btn:active {
+  background-color: white;
   transition: 0.2s;
 }
-
 .nav-logo {
   width: 200px;
   height: auto;
   padding: 1.5em 0;
+}
+
+// LifeGoal Card
+
+.lifegoal-card {
+  width: 80%;
+  margin: 1em auto;
+  border: 2px black solid;
+  border-radius: $border-radius;
 }
