@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "./App.scss";
 import axios from "axios";
 
@@ -8,18 +13,37 @@ import axios from "axios";
 import home from "./pages/home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/signup";
+import Dashboard from "./pages/Dashboard";
 
 class App extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
+    this.getComments = this.getComments.bind(this);
     this.state = {
       username: "",
       password: "",
       userData: null,
-      sessionToken: ""
+      sessionToken: "",
+      redirect: "",
+      loggedIn: false,
+      isAuthenticated: false,
+      userComments: [],
     };
+  }
+
+  getComments() {
+    axios
+      .get("http://localhost:5000/users/comments", {
+        headers: { Authorization: this.state.sessionToken },
+      })
+      .then((data) => {
+        console.log(data.data);
+        this.setState({ userComments: data.data });
+      });
   }
 
   handleChange(e) {
@@ -27,31 +51,76 @@ class App extends React.Component {
     this.setState({ [changeProp]: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleLogin(e) {
     console.log(this.state.username, this.state.password);
     e.preventDefault();
     axios
       .post("http://localhost:5000/users/login", {
-        username: this.state.username,        password: this.state.password,
+        username: this.state.username,
+        password: this.state.password,
       })
       .then((data) => {
-        if (data.token) {
-          this.setState({sessionToken: data.token})
-          axios.get("http://localhost:5000/users/profile/get", {currentUser = this.state.sessionToken})
-          .then(data => {console.log(data)
-        this.setState({redirect = "Dashboard"}))
+        console.log(data.data.token);
+        if (data.data.token) {
+          this.setState({
+            sessionToken: data.data.token,
+            loggedIn: true,
+            isAuthenticated: true,
+          });
+          axios
+            .get("http://localhost:5000/users/profile/get", {
+              headers: {
+                Authorization: data.data.token,
+              },
+            })
+            .then((data) => {
+              console.log(data.data);
+              this.setState({ userData: data.data, redirect: "dashboard" });
+            });
         } else {
           //Error
         }
       });
   }
+
+  handleLogout() {
+    this.setState({
+      loggedIn: false,
+      username: "",
+      userData: null,
+      sessionToken: "",
+      redirect: "",
+      isAuthenticated: false,
+    });
+
+    //TODO - redux reducer
+  }
+
+  handleRedirect() {
+    return <Redirect to={`/${this.state.redirect}`} />;
+  }
+
   render() {
     return (
       <div className="App">
         <Router>
-          <NavBar />
+          {this.handleRedirect()}
+          <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
           <Switch>
             <Route exact path="/" component={home} />
+            {this.state.isAuthenticated && (
+              <Route
+                path="/dashboard"
+                exact
+                render={(props) => (
+                  <Dashboard
+                    {...props}
+                    getComments={this.getComments}
+                    myComments={this.state.userComments}
+                  />
+                )}
+              />
+            )}
             <Route
               path="/login"
               render={(props) => (
@@ -60,7 +129,7 @@ class App extends React.Component {
                   handleChange={this.handleChange}
                   username={this.state.username}
                   password={this.state.password}
-                  handleSubmit={this.handleSubmit}
+                  handleLogin={this.handleLogin}
                 />
               )}
             />
