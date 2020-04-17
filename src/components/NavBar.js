@@ -9,10 +9,10 @@ export class Navbar extends Component {
           <img alt="logo" src={logo} className="nav-logo" />
           <div className="btn-group">
             <NavLink to="/login">
-              <span className="nav-btn myRipple">Login</span>
+              <span className="nav-btn">Login</span>
             </NavLink>
             <NavLink to="/signup">
-              <span className="nav-btn">Signup</span>
+              <span className="nav-btn">Sign Up</span>
             </NavLink>
             <NavLink to="/">
               <span className="nav-btn">Home</span>
