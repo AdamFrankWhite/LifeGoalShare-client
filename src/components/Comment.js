@@ -12,13 +12,25 @@ export default class Comment extends Component {
   }
 
   showReplyInput() {
-    this.setState({ showReplyInput: !this.state.showReplyInput });
+    this.setState({ showReplyInput: !this.showReplyInput });
   }
   render() {
+    {
+      /* Check if comment deleted */
+    }
+    let author =
+      this.props.comment.comment !== "DELETED"
+        ? this.props.comment.author + ": "
+        : "";
+
+    let comment = this.props.comment.comment;
+
     return (
       <div className="goal-comment-cont" style={this.props.margin}>
         <div className="goal-comment">
-          <p>{`${this.props.comment.author}: ${this.props.comment.comment}`}</p>
+          <p>
+            {author} {comment}
+          </p>
           <span
             onClick={() => this.showReplyInput()}
             className="comment-reply-btn"

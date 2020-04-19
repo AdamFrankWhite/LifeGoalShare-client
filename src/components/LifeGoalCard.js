@@ -59,27 +59,25 @@ export default class LifeGoalCard extends Component {
   getPost() {}
   render() {
     let commentData = this.props.data.comments;
-    let childComments = [];
+
+    //Group child comments with parents, reordering comment array
     commentData.forEach((comment) => {
+      //Checks if has parents
       if (comment.parents.length > 0) {
         let commentIndex = this.props.data.comments.findIndex(
           (x) => x.commentID == comment.commentID
         );
+        //Find immediate parent
         let parentCommentIndex = this.props.data.comments.findIndex(
           (x) => x.commentID == comment.parents[comment.parents.length - 1]
         );
         // Removes comment
         commentData.splice(commentIndex, 1);
-        // Checks if comment has existing parent, if so places next to parent comment
-        if (parentCommentIndex !== -1) {
-          commentData.splice(parentCommentIndex + 1, 0, comment);
-        }
-
-        childComments.push(comment);
+        commentData.splice(parentCommentIndex + 1, 0, comment);
       }
     });
 
-    //re-order comments
+    // Apply comment margins, based on comment level
     let comments = commentData.map((comment) => {
       let marginSize =
         comment.parents.length > 0
