@@ -122,3 +122,20 @@ $border-radius: 10px;
   border: 2px black solid;
   border-radius: $border-radius;
 }
+
+.goal-comment-cont {
+  padding: 0.5em;
+  border: maroon 1px solid;
+  border-radius: $border-radius;
+  margin: 0.5em auto;
+}
+
+.goal-comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-reply-btn:hover {
+  cursor: pointer;
+}
