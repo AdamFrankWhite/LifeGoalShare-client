@@ -58,19 +58,36 @@ export default class LifeGoalCard extends Component {
 
   getPost() {}
   render() {
-    let comments = this.props.data.comments
-      //re-order comments
-
-      .map((comment) => {
-        let marginSize =
-          comment.parents.length > 0
-            ? comment.parents.length + 1 + "em"
-            : "1em";
-        // console.log(comment);
-        return (
-          <Comment comment={comment} margin={{ marginLeft: marginSize }} />
+    let commentData = this.props.data.comments;
+    let childComments = [];
+    commentData.forEach((comment) => {
+      if (comment.parents.length > 0) {
+        let commentIndex = this.props.data.comments.findIndex(
+          (x) => x.commentID == comment.commentID
         );
-      });
+        let parentCommentIndex = this.props.data.comments.findIndex(
+          (x) => x.commentID == comment.parents[comment.parents.length - 1]
+        );
+        // Removes comment
+        commentData.splice(commentIndex, 1);
+        // Checks if comment has existing parent, if so places next to parent comment
+        if (parentCommentIndex !== -1) {
+          commentData.splice(parentCommentIndex + 1, 0, comment);
+        }
+
+        childComments.push(comment);
+      }
+    });
+
+    //re-order comments
+    let comments = commentData.map((comment) => {
+      let marginSize =
+        comment.parents.length > 0
+          ? comment.parents.length * 2 + 1 + "em"
+          : "1em";
+      // console.log(comment);
+      return <Comment comment={comment} margin={{ marginLeft: marginSize }} />;
+    });
 
     // for finding index, look for parents array last element, to find immediate parent
     let posts = this.props.data.posts.map((post) => post.postName);
@@ -81,22 +98,15 @@ export default class LifeGoalCard extends Component {
     return (
       <Card className="lifegoal-card">
         <CardActionArea>
-          <CardMedia
-          // component="img"
-          // alt="Contemplative Reptile"
-          // height="140"
-          // image="/static/images/cards/contemplative-reptile.jpg"
-          // title="Contemplative Reptile"
-          />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {this.props.data.lifeGoalName} by{" "}
-              {this.props.data.createdBy.handle}
+              {this.props.data.lifeGoalName}{" "}
+              <i>by {this.props.data.createdBy.handle}</i>
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
               {this.props.data.lifeGoalDescription}
             </Typography>
-            <Typography variant="body3" color="textSecondary" component="p">
+            <Typography variant="body2" color="textSecondary" component="p">
               Latest post: {posts[0]}
             </Typography>
           </CardContent>

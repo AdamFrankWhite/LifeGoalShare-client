@@ -12,7 +12,6 @@ export class home extends Component {
   componentDidMount() {
     axios.get("http://localhost:5000/lifegoals/").then((data) => {
       this.setState({ lifeGoals: data.data });
-      console.log(data.data);
     });
   }
   render() {
