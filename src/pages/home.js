@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import LifeGoalCard from "../components/LifeGoalCard";
-export class home extends Component {
+export default class Home extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,10 +17,10 @@ export class home extends Component {
   render() {
     const lifeGoals = this.state.lifeGoals
       .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-      .map((lifeGoal) => <LifeGoalCard data={lifeGoal} />);
+      .map((lifeGoal) => (
+        <LifeGoalCard data={lifeGoal} token={this.props.token} />
+      ));
 
     return <div>{lifeGoals}</div>;
   }
 }
-
-export default home;

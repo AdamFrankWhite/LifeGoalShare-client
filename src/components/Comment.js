@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReplyInput from "./ReplyInput";
+import moment from "moment";
 
 export default class Comment extends Component {
   constructor() {
@@ -12,7 +13,7 @@ export default class Comment extends Component {
   }
 
   showReplyInput() {
-    this.setState({ showReplyInput: !this.showReplyInput });
+    this.setState({ showReplyInput: !this.state.showReplyInput });
   }
   render() {
     {
@@ -38,8 +39,14 @@ export default class Comment extends Component {
             {this.state.showReplyInput ? "Cancel" : "Reply"}
           </span>
         </div>
-
-        {this.state.showReplyInput && <ReplyInput />}
+        <p>{moment(this.props.comment.createdAt).fromNow()}</p>
+        {this.state.showReplyInput && (
+          <ReplyInput
+            token={this.props.token}
+            lifeGoalID={this.props.lifeGoalID}
+            parents={this.props.parents}
+          />
+        )}
       </div>
     );
   }

@@ -10,7 +10,7 @@ import "./App.scss";
 import axios from "axios";
 
 //Pages
-import home from "./pages/home";
+import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
@@ -107,7 +107,13 @@ class App extends React.Component {
           {this.handleRedirect()}
           <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
           <Switch>
-            <Route exact path="/" component={home} />
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home {...props} token={this.state.sessionToken} />
+              )}
+            />
             {this.state.isAuthenticated && (
               <Route
                 path="/dashboard"

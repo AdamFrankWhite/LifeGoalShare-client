@@ -73,6 +73,7 @@ export default class LifeGoalCard extends Component {
         );
         // Removes comment
         commentData.splice(commentIndex, 1);
+        // Inserts comment after parent
         commentData.splice(parentCommentIndex + 1, 0, comment);
       }
     });
@@ -83,8 +84,18 @@ export default class LifeGoalCard extends Component {
         comment.parents.length > 0
           ? comment.parents.length * 2 + 1 + "em"
           : "1em";
-      // console.log(comment);
-      return <Comment comment={comment} margin={{ marginLeft: marginSize }} />;
+
+      //Concat parents array with current commentID
+      let parents = comment.parents.concat(comment.commentID);
+      return (
+        <Comment
+          comment={comment}
+          margin={{ marginLeft: marginSize }}
+          token={this.props.token}
+          lifeGoalID={this.props.data._id}
+          parents={parents}
+        />
+      );
     });
 
     // for finding index, look for parents array last element, to find immediate parent
