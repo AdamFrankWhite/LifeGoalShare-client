@@ -18,7 +18,12 @@ export default class Home extends Component {
     const lifeGoals = this.state.lifeGoals
       .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
       .map((lifeGoal) => (
-        <LifeGoalCard data={lifeGoal} token={this.props.token} />
+        <LifeGoalCard
+          data={lifeGoal}
+          token={this.props.token}
+          goToPost={this.props.goToPost}
+          goToLifeGoal={this.props.goToLifeGoal}
+        />
       ));
 
     return <div>{lifeGoals}</div>;

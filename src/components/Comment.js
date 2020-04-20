@@ -14,6 +14,7 @@ export default class Comment extends Component {
 
   showReplyInput() {
     this.setState({ showReplyInput: !this.state.showReplyInput });
+    console.log(window.localStorage.getItem("access_token"));
   }
   render() {
     {

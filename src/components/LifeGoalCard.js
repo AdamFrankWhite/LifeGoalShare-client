@@ -108,14 +108,24 @@ export default class LifeGoalCard extends Component {
       <Card className="lifegoal-card">
         <CardActionArea>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              onClick={() => this.props.goToLifeGoal()}
+            >
               {this.props.data.lifeGoalName}{" "}
               <i>by {this.props.data.createdBy.handle}</i>
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
               {this.props.data.lifeGoalDescription}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              onClick={() => this.props.goToPost()}
+            >
               Latest post: {posts[0]}
             </Typography>
           </CardContent>

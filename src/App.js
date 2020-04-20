@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
+import Post from "./pages/Post";
+import LifeGoal from "./pages/LifeGoal";
 
 class App extends React.Component {
   constructor() {
@@ -23,6 +25,8 @@ class App extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
     this.getComments = this.getComments.bind(this);
+    this.goToPost = this.goToPost.bind(this);
+    this.goToLifeGoal = this.goToLifeGoal.bind(this);
     this.state = {
       username: "",
       password: "",
@@ -46,6 +50,26 @@ class App extends React.Component {
       });
   }
 
+  goToPost() {
+    this.setState({ redirect: "post" });
+  }
+
+  goToLifeGoal() {
+    this.setState({ redirect: "lifegoal" });
+  }
+
+  componentDidMount() {
+    let token = window.localStorage.getItem("access_token");
+    if (token) {
+      this.setState({
+        sessionToken: token,
+        isAuthenticated: true,
+        loggedIn: true,
+      });
+    } else {
+      this.setState({ isAuthenticated: false, loggedIn: false });
+    }
+  }
   handleChange(e) {
     let changeProp = e.target.name;
     this.setState({ [changeProp]: e.target.value });
@@ -67,6 +91,7 @@ class App extends React.Component {
             loggedIn: true,
             isAuthenticated: true,
           });
+          window.localStorage.setItem("access_token", data.data.token);
           axios
             .get("http://localhost:5000/users/profile/get", {
               headers: {
@@ -92,6 +117,7 @@ class App extends React.Component {
       redirect: "",
       isAuthenticated: false,
     });
+    window.localStorage.clear();
 
     //TODO - redux reducer
   }
@@ -111,9 +137,16 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) => (
-                <Home {...props} token={this.state.sessionToken} />
+                <Home
+                  {...props}
+                  token={this.state.sessionToken}
+                  goToPost={this.goToPost}
+                  goToLifeGoal={this.goToLifeGoal}
+                />
               )}
             />
+
+            {/* Protected routes */}
             {this.state.isAuthenticated && (
               <Route
                 path="/dashboard"
@@ -127,6 +160,22 @@ class App extends React.Component {
                 )}
               />
             )}
+
+            {this.state.isAuthenticated && (
+              <Route
+                path="/post"
+                exact
+                render={(props) => <Post {...props} />}
+              />
+            )}
+            {this.state.isAuthenticated && (
+              <Route
+                path="/lifegoal"
+                exact
+                render={(props) => <LifeGoal {...props} />}
+              />
+            )}
+
             <Route
               path="/login"
               render={(props) => (

@@ -1,0 +1,1 @@
+Using window.localStorage, need to check security issue
