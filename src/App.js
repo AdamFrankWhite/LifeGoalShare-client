@@ -7,6 +7,11 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.scss";
+
+// Redux
+import store from "./redux/store";
+import { Provider } from "react-redux";
+
 import axios from "axios";
 
 //Pages
@@ -17,7 +22,7 @@ import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
 import LifeGoal from "./pages/LifeGoal";
 
-class App extends React.Component {
+class App extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
@@ -128,70 +133,72 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Router>
-          {this.handleRedirect()}
-          <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Home
-                  {...props}
-                  token={this.state.sessionToken}
-                  goToPost={this.goToPost}
-                  goToLifeGoal={this.goToLifeGoal}
-                />
-              )}
-            />
-
-            {/* Protected routes */}
-            {this.state.isAuthenticated && (
+      <Provider store={store}>
+        <div className="App">
+          <Router>
+            {this.handleRedirect()}
+            <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
+            <Switch>
               <Route
-                path="/dashboard"
                 exact
+                path="/"
                 render={(props) => (
-                  <Dashboard
+                  <Home
                     {...props}
-                    getComments={this.getComments}
-                    myComments={this.state.userComments}
+                    token={this.state.sessionToken}
+                    goToPost={this.goToPost}
+                    goToLifeGoal={this.goToLifeGoal}
                   />
                 )}
               />
-            )}
 
-            {this.state.isAuthenticated && (
-              <Route
-                path="/post"
-                exact
-                render={(props) => <Post {...props} />}
-              />
-            )}
-            {this.state.isAuthenticated && (
-              <Route
-                path="/lifegoal"
-                exact
-                render={(props) => <LifeGoal {...props} />}
-              />
-            )}
-
-            <Route
-              path="/login"
-              render={(props) => (
-                <LogIn
-                  {...props}
-                  handleChange={this.handleChange}
-                  username={this.state.username}
-                  password={this.state.password}
-                  handleLogin={this.handleLogin}
+              {/* Protected routes */}
+              {this.state.isAuthenticated && (
+                <Route
+                  path="/dashboard"
+                  exact
+                  render={(props) => (
+                    <Dashboard
+                      {...props}
+                      getComments={this.getComments}
+                      myComments={this.state.userComments}
+                    />
+                  )}
                 />
               )}
-            />
-            <Route path="/signup" component={SignUp} />
-          </Switch>
-        </Router>
-      </div>
+
+              {this.state.isAuthenticated && (
+                <Route
+                  path="/post"
+                  exact
+                  render={(props) => <Post {...props} />}
+                />
+              )}
+              {this.state.isAuthenticated && (
+                <Route
+                  path="/lifegoal"
+                  exact
+                  render={(props) => <LifeGoal {...props} />}
+                />
+              )}
+
+              <Route
+                path="/login"
+                render={(props) => (
+                  <LogIn
+                    {...props}
+                    handleChange={this.handleChange}
+                    username={this.state.username}
+                    password={this.state.password}
+                    handleLogin={this.handleLogin}
+                  />
+                )}
+              />
+              <Route path="/signup" component={SignUp} />
+            </Switch>
+          </Router>
+        </div>
+      </Provider>
     );
   }
 }
