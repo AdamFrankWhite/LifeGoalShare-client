@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,143 +14,7 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { connect } from "react-redux";
-import { loginUser, logOut } from "../redux/actions/userActions";
-
-class LogIn extends Component {
-  constructor(props) {
-    super();
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      username: "",
-      password: "",
-    };
-  }
-
-  handleChange(e) {
-    let changeProp = e.target.name;
-    this.setState({ [changeProp]: e.target.value });
-  }
-  handleLogin(e) {
-    let userData = {
-      username: this.state.username,
-      password: this.state.password,
-    };
-    e.preventDefault();
-    console.log("boo");
-    this.props.loginUser(userData);
-    // axios
-    //   .post("http://localhost:5000/users/login", {
-    //     username: this.state.username,
-    //     password: this.state.password,
-    //   })
-    //   .then((data) => {
-    //     console.log(data.data.token);
-    //     if (data.data.token) {
-    //       this.setState({
-    //         sessionToken: data.data.token,
-    //         loggedIn: true,
-    //         isAuthenticated: true,
-    //       });
-    //       window.localStorage.setItem("access_token", data.data.token);
-    //       axios
-    //         .get("http://localhost:5000/users/profile/get", {
-    //           headers: {
-    //             Authorization: data.data.token,
-    //           },
-    //         })
-    //         .then((data) => {
-    //           console.log(data.data);
-    //           this.props.handleRedirect("dashboard");
-    //         });
-    //     } else {
-    //       //Error
-    //     }
-    //   });
-  }
-
-  handleLogout() {
-    this.props.logOut();
-    this.props.handleRedirect("");
-    window.localStorage.clear();
-
-    //TODO - redux reducer
-  }
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <form onSubmit={this.handleLogin} className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Log In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
-    );
-  }
-}
+import { loginUser } from "../redux/actions/userActions";
 
 function Copyright() {
   return (
@@ -185,10 +49,103 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function LogIn(props) {
+  const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    let userData = {
+      username,
+      password,
+    };
+    e.preventDefault();
+    console.log("boo");
+    props.loginUser(userData);
+  };
+
+  const handleLogout = () => {
+    props.logOut();
+    props.handleRedirect("");
+    window.localStorage.clear();
+  }; // move to navbar
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} onSubmit={handleLogin} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}
+
 const mapStateToProps = function (state) {
   return {
     // profile: state.user.profile,
     loggedIn: state.user.loggedIn,
+    user: state.user,
   };
 };
 
@@ -196,8 +153,5 @@ const mapActionsToProps = {
   loginUser,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(useStyles)(LogIn));
+export default connect(mapStateToProps, mapActionsToProps)(LogIn);
 // export default withStyles(useStyles)(LogIn);
