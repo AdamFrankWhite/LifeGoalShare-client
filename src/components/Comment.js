@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import ReplyInput from "./ReplyInput";
 import moment from "moment";
+import { connect } from "react-redux";
 
-export default class Comment extends Component {
+class Comment extends Component {
   constructor() {
     super();
     this.showReplyInput = this.showReplyInput.bind(this);
@@ -33,12 +34,14 @@ export default class Comment extends Component {
           <p>
             {author} {comment}
           </p>
-          <span
-            onClick={() => this.showReplyInput()}
-            className="comment-reply-btn"
-          >
-            {this.state.showReplyInput ? "Cancel" : "Reply"}
-          </span>
+          {this.props.loggedIn && (
+            <span
+              onClick={() => this.showReplyInput()}
+              className="comment-reply-btn"
+            >
+              {this.state.showReplyInput ? "Cancel" : "Reply"}
+            </span>
+          )}
         </div>
         <p>{moment(this.props.comment.createdAt).fromNow()}</p>
         {this.state.showReplyInput && (
@@ -52,3 +55,10 @@ export default class Comment extends Component {
     );
   }
 }
+const mapStateToProps = function (state) {
+  return {
+    // profile: state.user.profile,
+    loggedIn: state.user.loggedIn,
+  };
+};
+export default connect(mapStateToProps)(Comment);
