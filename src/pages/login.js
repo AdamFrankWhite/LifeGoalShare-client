@@ -13,47 +13,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import axios from "axios";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { connect } from "react-redux";
+import { loginUser, logOut } from "../redux/actions/userActions";
 
 class LogIn extends Component {
   constructor(props) {
     super();
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       username: "",
@@ -66,47 +33,46 @@ class LogIn extends Component {
     this.setState({ [changeProp]: e.target.value });
   }
   handleLogin(e) {
-    console.log(this.state.username, this.state.password);
+    let userData = {
+      username: this.state.username,
+      password: this.state.password,
+    };
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/users/login", {
-        username: this.state.username,
-        password: this.state.password,
-      })
-      .then((data) => {
-        console.log(data.data.token);
-        if (data.data.token) {
-          this.setState({
-            sessionToken: data.data.token,
-            loggedIn: true,
-            isAuthenticated: true,
-          });
-          window.localStorage.setItem("access_token", data.data.token);
-          axios
-            .get("http://localhost:5000/users/profile/get", {
-              headers: {
-                Authorization: data.data.token,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              this.setState({ userData: data.data, redirect: "dashboard" });
-            });
-        } else {
-          //Error
-        }
-      });
+    console.log("boo");
+    this.props.loginUser(userData);
+    // axios
+    //   .post("http://localhost:5000/users/login", {
+    //     username: this.state.username,
+    //     password: this.state.password,
+    //   })
+    //   .then((data) => {
+    //     console.log(data.data.token);
+    //     if (data.data.token) {
+    //       this.setState({
+    //         sessionToken: data.data.token,
+    //         loggedIn: true,
+    //         isAuthenticated: true,
+    //       });
+    //       window.localStorage.setItem("access_token", data.data.token);
+    //       axios
+    //         .get("http://localhost:5000/users/profile/get", {
+    //           headers: {
+    //             Authorization: data.data.token,
+    //           },
+    //         })
+    //         .then((data) => {
+    //           console.log(data.data);
+    //           this.props.handleRedirect("dashboard");
+    //         });
+    //     } else {
+    //       //Error
+    //     }
+    //   });
   }
 
   handleLogout() {
-    this.setState({
-      loggedIn: false,
-      username: "",
-      userData: null,
-      sessionToken: "",
-      redirect: "",
-      isAuthenticated: false,
-    });
+    this.props.logOut();
+    this.props.handleRedirect("");
     window.localStorage.clear();
 
     //TODO - redux reducer
@@ -186,4 +152,52 @@ class LogIn extends Component {
   }
 }
 
-export default withStyles(useStyles)(LogIn);
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const mapStateToProps = function (state) {
+  return {
+    // profile: state.user.profile,
+    loggedIn: state.user.loggedIn,
+  };
+};
+
+const mapActionsToProps = {
+  loginUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(useStyles)(LogIn));
+// export default withStyles(useStyles)(LogIn);

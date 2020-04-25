@@ -62,19 +62,11 @@ class App extends Component {
 
   componentDidMount() {
     let token = window.localStorage.getItem("access_token");
-    if (token) {
-      this.setState({
-        sessionToken: token,
-        isAuthenticated: true,
-        loggedIn: true,
-      });
-    } else {
-      this.setState({ isAuthenticated: false, loggedIn: false });
-    }
   }
 
-  handleRedirect() {
-    return <Redirect to={`/${this.state.redirect}`} />;
+  handleRedirect(page) {
+    let path = page ? page : "";
+    return <Redirect to={`/${path}`} />;
   }
 
   render() {
@@ -83,7 +75,7 @@ class App extends Component {
         <div className="App">
           <Router>
             {this.handleRedirect()}
-            <NavBar loggedIn={this.state.loggedIn} logout={this.handleLogout} />
+            <NavBar store={store} logout={this.handleLogout} />
             <Switch>
               <Route
                 exact
@@ -131,13 +123,7 @@ class App extends Component {
               <Route
                 path="/login"
                 render={(props) => (
-                  <LogIn
-                    {...props}
-                    handleChange={this.handleChange}
-                    username={this.state.username}
-                    password={this.state.password}
-                    handleLogin={this.handleLogin}
-                  />
+                  <LogIn {...props} handleRedirect={this.handleRedirect} />
                 )}
               />
               <Route path="/signup" component={SignUp} />

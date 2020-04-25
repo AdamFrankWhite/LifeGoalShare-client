@@ -1,8 +1,21 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+
+import { connect } from "react-redux";
+import { logOut } from "../redux/actions/userActions";
 const logo = require("../assets/LifeGoalSHARE.png");
-export class Navbar extends Component {
+
+class Navbar extends Component {
+  constructor(props) {
+    super();
+    this.logOut = this.logOut.bind(this);
+  }
+
+  logOut() {
+    this.props.logOut();
+  }
   render() {
+    console.log(this.props.loggedIn);
     return (
       <nav>
         <div className="navbar-container">
@@ -27,7 +40,7 @@ export class Navbar extends Component {
               <span className="nav-btn">Home</span>
             </NavLink>
             {this.props.loggedIn && (
-              <NavLink to="/logout" onClick={this.props.logout}>
+              <NavLink to="/logout" onClick={() => this.logOut()}>
                 <span className="nav-btn">Log Out</span>
               </NavLink>
             )}
@@ -38,4 +51,15 @@ export class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = function (state) {
+  return {
+    // profile: state.user.profile,
+    loggedIn: state.user.loggedIn,
+  };
+};
+
+const mapActionsToProps = {
+  logOut,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Navbar);
