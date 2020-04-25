@@ -16,7 +16,7 @@ import axios from "axios";
 
 //Pages
 import Home from "./pages/Home";
-import LogIn from "./pages/LogIn";
+import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
@@ -25,9 +25,6 @@ import LifeGoal from "./pages/LifeGoal";
 class App extends Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
     this.getComments = this.getComments.bind(this);
     this.goToPost = this.goToPost.bind(this);
@@ -74,57 +71,6 @@ class App extends Component {
     } else {
       this.setState({ isAuthenticated: false, loggedIn: false });
     }
-  }
-  handleChange(e) {
-    let changeProp = e.target.name;
-    this.setState({ [changeProp]: e.target.value });
-  }
-
-  handleLogin(e) {
-    console.log(this.state.username, this.state.password);
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/users/login", {
-        username: this.state.username,
-        password: this.state.password,
-      })
-      .then((data) => {
-        console.log(data.data.token);
-        if (data.data.token) {
-          this.setState({
-            sessionToken: data.data.token,
-            loggedIn: true,
-            isAuthenticated: true,
-          });
-          window.localStorage.setItem("access_token", data.data.token);
-          axios
-            .get("http://localhost:5000/users/profile/get", {
-              headers: {
-                Authorization: data.data.token,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              this.setState({ userData: data.data, redirect: "dashboard" });
-            });
-        } else {
-          //Error
-        }
-      });
-  }
-
-  handleLogout() {
-    this.setState({
-      loggedIn: false,
-      username: "",
-      userData: null,
-      sessionToken: "",
-      redirect: "",
-      isAuthenticated: false,
-    });
-    window.localStorage.clear();
-
-    //TODO - redux reducer
   }
 
   handleRedirect() {
