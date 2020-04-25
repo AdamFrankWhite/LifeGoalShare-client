@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import LifeGoalCard from "../components/LifeGoalCard";
-export default class Home extends Component {
+class Home extends Component {
   constructor() {
     super();
     this.state = {
@@ -29,3 +30,5 @@ export default class Home extends Component {
     return <div>{lifeGoals}</div>;
   }
 }
+
+export default Home;

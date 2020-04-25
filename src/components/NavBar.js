@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { logOut } from "../redux/actions/userActions";
+import { logOut, loginUser } from "../redux/actions/userActions";
 const logo = require("../assets/LifeGoalSHARE.png");
 
 class Navbar extends Component {
@@ -10,7 +10,16 @@ class Navbar extends Component {
     super();
     this.logOut = this.logOut.bind(this);
   }
+  componentDidMount() {
+    if (window.localStorage.getItem("access_token")) {
+      this.props.loginUser();
 
+      // console.log(this.props.user);
+    }
+    // axios.get("http://localhost:5000/lifegoals/").then((data) => {
+    //   this.setState({ lifeGoals: data.data });
+    // });
+  }
   logOut() {
     this.props.logOut();
   }
@@ -60,6 +69,7 @@ const mapStateToProps = function (state) {
 
 const mapActionsToProps = {
   logOut,
+  loginUser,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);
