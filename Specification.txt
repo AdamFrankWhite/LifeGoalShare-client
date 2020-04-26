@@ -1,1 +1,5 @@
 Using window.localStorage, need to check security issue
+
+Introducing Redux, whilst complex at first, is very helpful, also cleaner code
+
+using hooks with functional components over class - much much cleaner code
