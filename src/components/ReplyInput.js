@@ -11,16 +11,7 @@ function ReplyInput(props) {
       comment: newComment,
       parentComments: props.parents,
     };
-    console.log(window.localStorage.getItem("access_token"));
-    axios
-      .post("http://localhost:5000/lifegoals/comment/post", data, {
-        headers: {
-          Authorization: window.localStorage.getItem("access_token"),
-        },
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    postComment(data);
   };
 
   return (
@@ -32,3 +23,15 @@ function ReplyInput(props) {
 }
 
 export default connect()(ReplyInput);
+
+function postComment(data) {
+  axios
+    .post("http://localhost:5000/lifegoals/comment/post", data, {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((data) => {
+      console.log(data);
+    });
+}
