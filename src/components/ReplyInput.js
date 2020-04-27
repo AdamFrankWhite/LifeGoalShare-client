@@ -1,26 +1,15 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
-export default class ReplyInput extends Component {
-  constructor() {
-    super();
-    this.addComment = this.addComment.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      comment: "",
-      parents: [],
-    };
-  }
+function ReplyInput(props) {
+  const [newComment, setNewComment] = useState("");
 
-  handleChange(e) {
-    this.setState({ comment: e.target.value });
-  }
-
-  addComment() {
+  const addComment = () => {
     let data = {
-      lifeGoalID: this.props.lifeGoalID,
-      comment: this.state.comment,
-      parentComments: this.props.parents,
+      lifeGoalID: props.lifeGoalID,
+      comment: newComment,
+      parentComments: props.parents,
     };
     console.log(window.localStorage.getItem("access_token"));
     axios
@@ -32,13 +21,14 @@ export default class ReplyInput extends Component {
       .then((data) => {
         console.log(data);
       });
-  }
-  render() {
-    return (
-      <div>
-        <textarea onChange={this.handleChange}></textarea>
-        <button onClick={() => this.addComment()}>Send</button>
-      </div>
-    );
-  }
+  };
+
+  return (
+    <div>
+      <textarea onChange={(e) => setNewComment(e.target.value)}></textarea>
+      <button onClick={() => addComment()}>Send</button>
+    </div>
+  );
 }
+
+export default connect()(ReplyInput);
