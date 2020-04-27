@@ -44,7 +44,7 @@ class App extends Component {
   getComments() {
     axios
       .get("http://localhost:5000/users/comments", {
-        headers: { Authorization: this.state.sessionToken },
+        headers: { Authorization: window.localStorage.getItem("access_token") },
       })
       .then((data) => {
         console.log(data.data);
@@ -61,7 +61,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let token = window.localStorage.getItem("access_token");
+    console.log(window.localStorage);
   }
 
   handleRedirect(page) {
@@ -83,7 +83,6 @@ class App extends Component {
                 render={(props) => (
                   <Home
                     {...props}
-                    token={this.state.sessionToken}
                     goToPost={this.goToPost}
                     goToLifeGoal={this.goToLifeGoal}
                   />

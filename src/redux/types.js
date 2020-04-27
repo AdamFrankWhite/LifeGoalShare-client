@@ -5,7 +5,9 @@ export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";
 export const SET_USER = "SET_USER";
 export const LOADING_USER = "LOADING_USER";
 
-// Data reducer types
+// Lifegoal reducer types
+
+export const GET_ALL_LIFEGOALS = "GET_ALL_LIFEGOALS";
 
 // CONTINUE - video 6:19
 

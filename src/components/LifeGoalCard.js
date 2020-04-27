@@ -91,7 +91,6 @@ export default class LifeGoalCard extends Component {
         <Comment
           comment={comment}
           margin={{ marginLeft: marginSize }}
-          token={this.props.token}
           lifeGoalID={this.props.data._id}
           parents={parents}
         />

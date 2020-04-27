@@ -9,17 +9,16 @@ import {
 import axios from "axios";
 
 export const loginUser = (userData) => (dispatch) => {
-  console.log("1");
   dispatch({ type: LOADING_UI });
-  console.log(dispatch);
   axios
     .post("http://localhost:5000/users/login", userData)
     .then((res) => {
       dispatch({ type: SET_AUTHENTICATION, payload: res.data.token });
       dispatch({ type: LOADING_UI, payload: false });
-      dispatch(getUserData());
+
       // dispatch({ type: CLEAR_ERRORS });
       window.localStorage.setItem("access_token", res.data.token);
+      dispatch(getUserData());
     })
     .catch((err) => {
       // dispatch({ type: SET_ERRORS, payload: err.response.data });
@@ -41,6 +40,13 @@ export const getUserData = () => (dispatch) => {
 
       // this.setState({ userData: data.data, redirect: "dashboard" });
     });
+};
+
+export const authenticateUserOnRefresh = () => (dispatch) => {
+  dispatch({
+    type: SET_AUTHENTICATION,
+    payload: window.localStorage.getItem("access_token"),
+  });
 };
 
 export const logOut = () => (dispatch) => {

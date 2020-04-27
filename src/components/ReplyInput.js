@@ -22,11 +22,11 @@ export default class ReplyInput extends Component {
       comment: this.state.comment,
       parentComments: this.props.parents,
     };
-    console.log(data);
+    console.log(window.localStorage.getItem("access_token"));
     axios
       .post("http://localhost:5000/lifegoals/comment/post", data, {
         headers: {
-          Authorization: this.props.token,
+          Authorization: window.localStorage.getItem("access_token"),
         },
       })
       .then((data) => {

@@ -34,6 +34,6 @@ export default function (state = initialState, action) {
     case LOADING_UI:
       return { ...state };
     default:
-      return initialState;
+      return { ...state };
   }
 }

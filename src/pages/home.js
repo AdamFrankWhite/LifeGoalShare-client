@@ -1,27 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+import { getAllLifeGoals } from "../redux/actions/lifegoalActions";
 import LifeGoalCard from "../components/LifeGoalCard";
 class Home extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = {
-      lifeGoals: [],
-    };
   }
 
-  componentDidMount() {
-    axios.get("http://localhost:5000/lifegoals/").then((data) => {
-      this.setState({ lifeGoals: data.data });
-    });
+  componentWillMount() {
+    this.props.getAllLifeGoals();
+    //TODO - Home component is working, it is the redirect with SET_AUTHENTICATION action that is changing/resetting application state
   }
   render() {
-    const lifeGoals = this.state.lifeGoals
+    const lifeGoals = this.props.lifegoals
       .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
       .map((lifeGoal) => (
         <LifeGoalCard
           data={lifeGoal}
-          token={this.props.token}
           goToPost={this.props.goToPost}
           goToLifeGoal={this.props.goToLifeGoal}
         />
@@ -31,4 +26,14 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = function (state) {
+  return {
+    lifegoals: state.lifegoals.lifegoalsData,
+  };
+};
+
+const mapActionsToProps = {
+  getAllLifeGoals,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Home);

@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { logOut, loginUser } from "../redux/actions/userActions";
+import {
+  logOut,
+  authenticateUserOnRefresh,
+} from "../redux/actions/userActions";
 const logo = require("../assets/LifeGoalSHARE.png");
 
 class Navbar extends Component {
@@ -10,9 +13,10 @@ class Navbar extends Component {
     super();
     this.logOut = this.logOut.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     if (window.localStorage.getItem("access_token")) {
-      this.props.loginUser();
+      console.log(window.localStorage.getItem("access_token"));
+      this.props.authenticateUserOnRefresh(); //error - on refresh, you are logging in without username/password
 
       // console.log(this.props.user);
     }
@@ -69,7 +73,7 @@ const mapStateToProps = function (state) {
 
 const mapActionsToProps = {
   logOut,
-  loginUser,
+  authenticateUserOnRefresh,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);

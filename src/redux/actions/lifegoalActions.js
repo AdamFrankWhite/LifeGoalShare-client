@@ -1,4 +1,4 @@
-import { GET_ALL_LIFEGOALS } from "../types";
+import { GET_ALL_LIFEGOALS, LOADING_UI } from "../types";
 import axios from "axios";
 
 export const getAllLifeGoals = () => (dispatch) => {

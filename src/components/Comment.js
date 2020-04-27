@@ -46,7 +46,6 @@ class Comment extends Component {
         <p>{moment(this.props.comment.createdAt).fromNow()}</p>
         {this.state.showReplyInput && (
           <ReplyInput
-            token={this.props.token}
             lifeGoalID={this.props.lifeGoalID}
             parents={this.props.parents}
           />

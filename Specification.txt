@@ -3,3 +3,8 @@ Using window.localStorage, need to check security issue
 Introducing Redux, whilst complex at first, is very helpful, also cleaner code
 
 using hooks with functional components over class - much much cleaner code
+
+issue with reducer overwriting state of another reducer - the issue was in the reducer, instead of return ...state in default switch case section, I was return initialState.
+
+
+issue of undefined localStorage object on refresh - turned out, was calling login on refresh, without username/password, in doing so, overwriting token with undefined. fixed by creating new action for authenticateOnRefresh
