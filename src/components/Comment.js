@@ -4,11 +4,9 @@ import moment from "moment";
 import { connect } from "react-redux";
 
 function Comment(props) {
-  // const [toggleComments, setToggleComments] = useState(false);
   const [toggleReplyInput, setToggleReplyInput] = useState(false);
 
   // Check if comment deleted
-
   let author =
     props.comment.comment !== "DELETED" ? props.comment.author + ": " : "";
   let comment = props.comment.comment;
