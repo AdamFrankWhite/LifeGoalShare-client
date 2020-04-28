@@ -37,41 +37,53 @@ function Profile(props) {
         src={props.user.userData.profile.profileImageUrl}
         alt="profile image"
       ></img>
-
-      {!editBio ? (
-        <h3>Bio: {bio}</h3>
-      ) : (
-        <input
-          type="text"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-      )}
+      <br></br>
       <span
-        onClick={() => {
-          setEditBio(!editBio);
-          editBio && updateProfile();
-        }}
-      >
-        Edit
-      </span>
-      {!editLocation ? (
-        <h3>Location: {location}</h3>
-      ) : (
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-      )}
-      <span
-        onClick={() => {
-          setEditLocation(!editLocation);
-          editLocation && updateProfile();
-        }}
-      >
-        Edit
-      </span>
+        className="edit-btn"
+        onClick={() => console.log("change pic")}
+      ></span>
+      <div className="profile-row">
+        <h3>Bio: </h3>
+        {!editBio ? (
+          <span>{bio}</span>
+        ) : (
+          <input
+            type="text"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+        )}
+        <span
+          className="edit-btn"
+          onClick={() => {
+            setEditBio(!editBio);
+            editBio && updateProfile();
+          }}
+        >
+          {!editBio ? "Edit" : "Update"}
+        </span>
+      </div>
+      <div className="profile-row">
+        <h3>Location: </h3>
+        {!editLocation ? (
+          <span>{location}</span>
+        ) : (
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        )}
+        <span
+          className="edit-btn"
+          onClick={() => {
+            setEditLocation(!editLocation);
+            editLocation && updateProfile();
+          }}
+        >
+          {!editLocation ? "Edit" : "Update"}
+        </span>
+      </div>
       <h3>
         Lifegoal interests: {props.user.userData.profile.lifeGoalCategories}
       </h3>

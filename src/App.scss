@@ -139,3 +139,59 @@ $border-radius: 10px;
 .comment-reply-btn:hover {
   cursor: pointer;
 }
+
+// Dashboard
+.dashboard-cont {
+  display: flex;
+}
+.sidebar {
+  background: rgb(54, 168, 235);
+  flex-basis: 20%;
+  height: 100vh;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  ul:hover {
+    cursor: pointer;
+  }
+  ul > li {
+    padding: 0.5em;
+  }
+  ul > li:hover {
+    background: blue;
+    transition: 0.2s;
+  }
+}
+
+.dashboard-main {
+  flex-basis: 80%;
+  height: 100vh;
+}
+
+.profile-cont {
+  width: 40%;
+  margin: auto;
+  border: 2px maroon solid;
+  border-radius: 10px;
+  padding: 2.5em;
+  text-align: center;
+  .profile-row {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .edit-btn {
+    color: blue;
+  }
+  .edit-btn:hover {
+    color: orange;
+    cursor: pointer;
+  }
+}
+.profile-pic {
+  border: black 5px solid;
+  border-radius: 50%;
+}

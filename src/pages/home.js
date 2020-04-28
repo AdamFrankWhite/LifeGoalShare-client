@@ -16,6 +16,7 @@ class Home extends Component {
       .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
       .map((lifeGoal) => (
         <LifeGoalCard
+          key={lifeGoal._id}
           data={lifeGoal}
           goToPost={this.props.goToPost}
           goToLifeGoal={this.props.goToLifeGoal}

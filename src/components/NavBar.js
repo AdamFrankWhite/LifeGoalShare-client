@@ -28,7 +28,6 @@ class Navbar extends Component {
     this.props.logOut();
   }
   render() {
-    console.log(this.props.loggedIn);
     return (
       <nav>
         <div className="navbar-container">

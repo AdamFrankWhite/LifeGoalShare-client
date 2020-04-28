@@ -35,7 +35,7 @@ export const getUserData = () => (dispatch) => {
       //try removing header here, as think is set above
     })
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data, "boo");
       dispatch({ type: SET_USER, payload: res.data });
 
       // this.setState({ userData: data.data, redirect: "dashboard" });
@@ -47,8 +47,10 @@ export const authenticateUserOnRefresh = () => (dispatch) => {
     type: SET_AUTHENTICATION,
     payload: window.localStorage.getItem("access_token"),
   });
+  dispatch(getUserData());
 };
 
 export const logOut = () => (dispatch) => {
   dispatch({ type: SET_UNAUTHENTICATED });
+  window.localStorage.clear();
 };

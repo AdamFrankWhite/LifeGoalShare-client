@@ -55,6 +55,7 @@ export default function LifeGoalCard(props) {
   // for finding index, look for parents array last element, to find immediate parent
   let posts = props.data.posts.map((post) => post.postName);
 
+  // get follower images
   let followers = props.data.followers.map((follower) => follower.followerID);
   return (
     <Card className="lifegoal-card">
