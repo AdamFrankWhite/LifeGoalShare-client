@@ -46,7 +46,11 @@ function Dashboard() {
     },
   ];
   let sidebarMenu = menuTabs.map((item) => (
-    <Link className="submenu-item" to={`/dashboard/${item.path}`}>
+    <Link
+      key={menuTabs.indexOf(item)}
+      className="submenu-item"
+      to={`/dashboard/${item.path}`}
+    >
       <li>
         {item.icon}
         {item.name}

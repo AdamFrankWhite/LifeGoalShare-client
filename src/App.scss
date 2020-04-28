@@ -204,8 +204,13 @@ $border-radius: 10px;
     justify-content: space-between;
     align-items: center;
   }
+  .profile-content {
+    display: flex;
+    align-items: center;
+  }
   .edit-btn {
     color: blue;
+    padding: 0 0.5em;
   }
   .edit-btn:hover {
     color: orange;

@@ -61,6 +61,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ isAuthenticated: store.getState().user.authenticated });
+    console.log(store.getState());
     //needs to also authenticate on update, otherwise out of sync
   }
 

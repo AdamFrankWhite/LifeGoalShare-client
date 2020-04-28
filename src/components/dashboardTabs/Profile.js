@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { uploadImage } from "../../redux/actions/userActions";
+
 import axios from "axios";
 import EditIcon from "@material-ui/icons/Edit";
 import CheckIcon from "@material-ui/icons/Check";
@@ -11,68 +13,11 @@ function Profile(props) {
   );
   const [editLocation, setEditLocation] = useState(false);
   const [editBio, setEditBio] = useState(false);
-  const [imageFile, setImageFile] = useState();
-  const [toggleUploadImage, setToggleUploadImage] = useState(false);
+  const [imageFile, setImageFile] = useState("f");
 
-  const updateProfile = () => {
-    let updatedUserProfile = {
-      location: location,
-      bio: bio,
-      lifeGoalCategories: [],
-    };
-    axios
-      .put("http://localhost:5000/users/profile/update", updatedUserProfile, {
-        headers: {
-          Authorization: window.localStorage.getItem("access_token"),
-        },
-      })
-      .then((res) => {
-        console.log("Update Profile");
-      })
-      .catch((err) => console.log(err));
-  };
-  let upload;
-  return (
-    <div className="profile-cont">
-      <h2>{props.user.userData.profile.handle}'s Profile</h2>
-      <img
-        className="profile-pic"
-        src={props.user.userData.profile.profileImageUrl}
-        alt="profile image"
-      ></img>
-      <input
-        type="file"
-        ref={(ref) => (upload = ref)}
-        style={toggleUploadImage ? { display: "block" } : { display: "none" }}
-      ></input>
-      {toggleUploadImage && (
-        <span
-          onClick={() => {
-            let formData = new FormData();
-            console.log(upload.files);
-            // axios.post("http://localhost:5000/users/profile/update/img");  UPLOAD IMAGE, THEN UPDATE STATE AND GET NEW IMAGE TO DISPLAY
-          }}
-        >
-          Upload
-        </span>
-      )}
-      <br></br>
-      <span
-        className="upload-link"
-        onClick={(e) => {
-          upload.click();
-          setToggleUploadImage(true);
-        }}
-      >
-        Change image...
-      </span>
-      <br></br>
-      <span
-        className="edit-btn"
-        onClick={() => console.log("change pic")}
-      ></span>
-      <div className="profile-row">
-        <h3>Bio: </h3>
+  const Bio = () => {
+    return (
+      <div className="profile-content">
         {!editBio ? (
           <span>{bio}</span>
         ) : (
@@ -104,8 +49,56 @@ function Profile(props) {
           </Tooltip>
         )}
       </div>
-      <div className="profile-row">
-        <h3>Location: </h3>
+    );
+  };
+
+  const handleImageChange = (e) => {
+    const image = e.target.files[0];
+    console.log(image);
+    // Create form data
+    const formData = new FormData();
+    formData.append("file", image);
+    //SEND TO SERVER
+    props.uploadImage(formData, image);
+    setImageFile(props.user.userImage); // need async await, uploadImage, returns blob, which then setImageFile with,
+  };
+  const ProfilePic = () => {
+    return (
+      <div>
+        {/* Profile Picture */}
+        <img
+          className="profile-pic"
+          src={props.user.userImage}
+          alt="profile image"
+        ></img>
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: "none" }}
+          onChange={handleImageChange}
+        ></input>
+        <br></br>
+        <Tooltip title="Change image" aria-label="Edit Image">
+          <EditIcon
+            className="edit-btn"
+            onClick={() => {
+              document.getElementById("fileInput").click();
+              // axios.post("http://localhost:5000/users/profile/update/img");  UPLOAD IMAGE, THEN UPDATE STATE AND GET NEW IMAGE TO DISPLAY
+            }}
+          ></EditIcon>
+        </Tooltip>
+        <br></br>
+        <span
+          className="edit-btn"
+          onClick={() => console.log("change pic")}
+        ></span>
+      </div>
+    );
+  };
+
+  const Location = () => {
+    return (
+      <div className="profile-content">
         {!editLocation ? (
           <span>{location}</span>
         ) : (
@@ -120,6 +113,7 @@ function Profile(props) {
             <EditIcon
               className="edit-btn"
               onClick={() => {
+                console.log(props.user);
                 setEditLocation(!editLocation);
               }}
             ></EditIcon>
@@ -136,6 +130,44 @@ function Profile(props) {
           </Tooltip>
         )}
       </div>
+    );
+  };
+
+  const updateProfile = () => {
+    let updatedUserProfile = {
+      location: location,
+      bio: bio,
+      lifeGoalCategories: [],
+    };
+    axios
+      .put("http://localhost:5000/users/profile/update", updatedUserProfile, {
+        headers: {
+          Authorization: window.localStorage.getItem("access_token"),
+        },
+      })
+      .then((res) => {
+        console.log("Update Profile");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Main Return
+  return (
+    <div className="profile-cont">
+      <h2>{props.user.userData.profile.handle}'s Profile</h2>
+      <ProfilePic />
+
+      {/* Profile Biography */}
+      <div className="profile-row">
+        <h3>Bio: </h3>
+        <Bio />
+      </div>
+
+      {/* Profile Location */}
+      <div className="profile-row">
+        <h3>Location: </h3>
+        <Location />
+      </div>
       <h3>
         Lifegoal interests: {props.user.userData.profile.lifeGoalCategories}
       </h3>
@@ -149,4 +181,8 @@ const mapStateToProps = (state) => {
     // profileImg: state.user
   };
 };
-export default connect(mapStateToProps)(Profile);
+
+const mapActionsToProps = {
+  uploadImage,
+};
+export default connect(mapStateToProps, mapActionsToProps)(Profile);

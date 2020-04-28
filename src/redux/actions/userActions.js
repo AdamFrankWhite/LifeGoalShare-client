@@ -3,6 +3,7 @@ import {
   SET_AUTHENTICATION,
   SET_UNAUTHENTICATED,
   LOADING_UI,
+  SET_USER_IMAGE,
   CLEAR_ERRORS,
   SET_ERRORS,
 } from "../types";
@@ -37,6 +38,7 @@ export const getUserData = () => (dispatch) => {
     .then((res) => {
       console.log(res.data, "boo");
       dispatch({ type: SET_USER, payload: res.data });
+      // dispatch({type: SET_USER_IMAGE, payload: window.URL.createObjectURL(res.data.profile.profileImageUrl)})
 
       // this.setState({ userData: data.data, redirect: "dashboard" });
     });
@@ -53,4 +55,31 @@ export const authenticateUserOnRefresh = () => (dispatch) => {
 export const logOut = () => (dispatch) => {
   dispatch({ type: SET_UNAUTHENTICATED });
   window.localStorage.clear();
+};
+
+export const uploadImage = (formData, file) => (dispatch) => {
+  console.log(file);
+  dispatch({ type: LOADING_UI });
+  dispatch({
+    type: SET_USER_IMAGE,
+    payload: window.URL.createObjectURL(file),
+  });
+  axios
+    .post("http://localhost:5000/users/profile/", formData, {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .catch((err) => console.log(err));
+  axios
+    .post(
+      "http://localhost:5000/users/profile/update/img",
+      { profileImageUrl: "fart" },
+      {
+        headers: {
+          Authorization: window.localStorage.getItem("access_token"),
+        },
+      }
+    )
+    .catch((err) => console.log(err));
 };
