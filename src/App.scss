@@ -151,16 +151,28 @@ $border-radius: 10px;
   ul {
     list-style: none;
     padding: 0;
+    width: 80%;
+    margin: auto;
   }
   ul:hover {
     cursor: pointer;
   }
-  ul > li {
+  ul li {
     padding: 0.5em;
+    margin: 0.3em;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
-  ul > li:hover {
+  ul li:hover {
     background: blue;
+    color: white;
     transition: 0.2s;
+    box-shadow: white 0px 0px 8px;
+  }
+  .icon-padding {
+    padding-right: 0.4em;
   }
 }
 

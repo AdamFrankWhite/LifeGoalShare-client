@@ -6,6 +6,12 @@ import MyLifeGoals from "../components/dashboardTabs/MyLifeGoals";
 import MyComments from "../components/dashboardTabs/MyComments";
 import Settings from "../components/dashboardTabs/Settings";
 import DashboardMain from "../components/dashboardTabs/DashboardMain";
+
+// Material UI
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import SettingsIcon from "@material-ui/icons/Settings";
+import WallpaperIcon from "@material-ui/icons/Wallpaper";
+import CommentIcon from "@material-ui/icons/Comment";
 function Dashboard() {
   // const myComments = this.props.myComments
   //   .sort((a, b) => (a.comment.createdAt < b.comment.createdAt ? 1 : -1))
@@ -17,14 +23,42 @@ function Dashboard() {
   //     />
   //   ));
 
-  let menuTabs = ["profile", "lifegoals", "comments", "settings"];
+  let menuTabs = [
+    {
+      icon: <AssignmentIndIcon className="icon-padding" />,
+      path: "profile",
+      name: "My Profile",
+    },
+    {
+      icon: <WallpaperIcon className="icon-padding" />,
+      path: "lifegoals",
+      name: "My LifeGoals",
+    },
+    {
+      icon: <CommentIcon className="icon-padding" />,
+      path: "comments",
+      name: "My Comments",
+    },
+    {
+      icon: <SettingsIcon className="icon-padding" />,
+      path: "settings",
+      name: "Settings",
+    },
+  ];
   let sidebarMenu = menuTabs.map((item) => (
-    <Link to={`/dashboard/${item}`}>{item}</Link>
+    <Link className="submenu-item" to={`/dashboard/${item.path}`}>
+      <li>
+        {item.icon}
+        {item.name}
+      </li>
+    </Link>
   ));
   return (
     <Router>
       <div className="dashboard-cont">
-        <nav className="sidebar">{sidebarMenu}</nav>
+        <nav className="sidebar">
+          <ul>{sidebarMenu}</ul>
+        </nav>
         <Switch>
           {/* Tabs */}
           <main className="dashboard-main">
