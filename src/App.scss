@@ -144,20 +144,29 @@ $border-radius: 10px;
 .dashboard-cont {
   display: flex;
 }
+
+.upload-link {
+  color: blue;
+}
+.upload-link:hover {
+  cursor: pointer;
+  color: orange;
+}
 .sidebar {
-  background: rgb(54, 168, 235);
+  background: #f4e8b3;
   flex-basis: 20%;
   height: 100vh;
   ul {
     list-style: none;
     padding: 0;
     width: 80%;
-    margin: auto;
+    margin: 3em auto;
   }
   ul:hover {
     cursor: pointer;
   }
   ul li {
+    color: rgb(134, 115, 89);
     padding: 0.5em;
     margin: 0.3em;
     border-radius: 5px;
@@ -166,7 +175,7 @@ $border-radius: 10px;
     align-items: center;
   }
   ul li:hover {
-    background: blue;
+    background: #bca06e;
     color: white;
     transition: 0.2s;
     box-shadow: white 0px 0px 8px;
