@@ -47,7 +47,6 @@ class App extends Component {
         headers: { Authorization: window.localStorage.getItem("access_token") },
       })
       .then((data) => {
-        console.log(data.data);
         this.setState({ userComments: data.data });
       });
   }
@@ -61,7 +60,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(window.localStorage);
+    this.setState({ isAuthenticated: store.getState().user.authenticated });
+    //needs to also authenticate on update, otherwise out of sync
   }
 
   handleRedirect(page) {
