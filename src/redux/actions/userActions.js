@@ -70,16 +70,31 @@ export const uploadImage = (formData, file) => (dispatch) => {
         Authorization: window.localStorage.getItem("access_token"),
       },
     })
-    .catch((err) => console.log(err));
-  axios
-    .post(
-      "http://localhost:5000/users/profile/update/img",
-      { profileImageUrl: "fart" },
-      {
-        headers: {
-          Authorization: window.localStorage.getItem("access_token"),
-        },
-      }
-    )
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .then((res) => {
+      console.log(res.data.file.filename);
+      axios
+        .post(
+          "http://localhost:5000/users/profile/update/img",
+          { profileImageUrl: res.data.file.filename },
+          {
+            headers: {
+              Authorization: window.localStorage.getItem("access_token"),
+            },
+          }
+        )
+        .then((res) => console.log(res.data))
+
+        .catch((err) => console.log(err));
+      axios
+        .get(
+          `http://localhost:5000/users/profile/image/${res.data.file.filename}`,
+          {
+            headers: {
+              Authorization: window.localStorage.getItem("access_token"),
+            },
+          }
+        )
+        .then((res) => console.log(res));
+    });
 };

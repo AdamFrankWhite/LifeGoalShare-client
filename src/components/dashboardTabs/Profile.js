@@ -15,9 +15,71 @@ function Profile(props) {
   const [editBio, setEditBio] = useState(false);
   const [imageFile, setImageFile] = useState("f");
 
-  const Bio = () => {
-    return (
-      <div className="profile-content">
+  console.log(props.user);
+  const handleImageChange = (e) => {
+    const image = e.target.files[0];
+    console.log(image);
+    // Create form data
+    const formData = new FormData();
+    formData.append("file", image);
+    //SEND TO SERVER
+    props.uploadImage(formData, image);
+    setImageFile(props.user.userImage); // need async await, uploadImage, returns blob, which then setImageFile with,
+  };
+
+  const updateProfile = () => {
+    let updatedUserProfile = {
+      location: location,
+      bio: bio,
+      lifeGoalCategories: [],
+    };
+    axios
+      .put("http://localhost:5000/users/profile/update", updatedUserProfile, {
+        headers: {
+          Authorization: window.localStorage.getItem("access_token"),
+        },
+      })
+      .then((res) => {
+        console.log("Update Profile");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Main Return
+  return (
+    <div className="profile-cont">
+      <h2>{props.user.userData.profile.handle}'s Profile</h2>
+      {/* Profile Picture */}
+      <img
+        className="profile-pic"
+        src={props.user.userImage}
+        alt="profile image"
+      ></img>
+      <input
+        type="file"
+        id="fileInput"
+        style={{ display: "none" }}
+        onChange={handleImageChange}
+      ></input>
+      <br></br>
+      <Tooltip title="Change image" aria-label="Edit Image">
+        <EditIcon
+          className="edit-btn"
+          onClick={() => {
+            document.getElementById("fileInput").click();
+            // axios.post("http://localhost:5000/users/profile/update/img");  UPLOAD IMAGE, THEN UPDATE STATE AND GET NEW IMAGE TO DISPLAY
+          }}
+        ></EditIcon>
+      </Tooltip>
+      <br></br>
+      <span
+        className="edit-btn"
+        onClick={() => console.log("change pic")}
+      ></span>
+
+      {/* Profile Biography */}
+      <div className="profile-row">
+        <h3>Bio: </h3>
         {!editBio ? (
           <span>{bio}</span>
         ) : (
@@ -49,56 +111,10 @@ function Profile(props) {
           </Tooltip>
         )}
       </div>
-    );
-  };
 
-  const handleImageChange = (e) => {
-    const image = e.target.files[0];
-    console.log(image);
-    // Create form data
-    const formData = new FormData();
-    formData.append("file", image);
-    //SEND TO SERVER
-    props.uploadImage(formData, image);
-    setImageFile(props.user.userImage); // need async await, uploadImage, returns blob, which then setImageFile with,
-  };
-  const ProfilePic = () => {
-    return (
-      <div>
-        {/* Profile Picture */}
-        <img
-          className="profile-pic"
-          src={props.user.userImage}
-          alt="profile image"
-        ></img>
-        <input
-          type="file"
-          id="fileInput"
-          style={{ display: "none" }}
-          onChange={handleImageChange}
-        ></input>
-        <br></br>
-        <Tooltip title="Change image" aria-label="Edit Image">
-          <EditIcon
-            className="edit-btn"
-            onClick={() => {
-              document.getElementById("fileInput").click();
-              // axios.post("http://localhost:5000/users/profile/update/img");  UPLOAD IMAGE, THEN UPDATE STATE AND GET NEW IMAGE TO DISPLAY
-            }}
-          ></EditIcon>
-        </Tooltip>
-        <br></br>
-        <span
-          className="edit-btn"
-          onClick={() => console.log("change pic")}
-        ></span>
-      </div>
-    );
-  };
-
-  const Location = () => {
-    return (
-      <div className="profile-content">
+      {/* Profile Location */}
+      <div className="profile-row">
+        <h3>Location: </h3>
         {!editLocation ? (
           <span>{location}</span>
         ) : (
@@ -129,44 +145,6 @@ function Profile(props) {
             ></CheckIcon>
           </Tooltip>
         )}
-      </div>
-    );
-  };
-
-  const updateProfile = () => {
-    let updatedUserProfile = {
-      location: location,
-      bio: bio,
-      lifeGoalCategories: [],
-    };
-    axios
-      .put("http://localhost:5000/users/profile/update", updatedUserProfile, {
-        headers: {
-          Authorization: window.localStorage.getItem("access_token"),
-        },
-      })
-      .then((res) => {
-        console.log("Update Profile");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Main Return
-  return (
-    <div className="profile-cont">
-      <h2>{props.user.userData.profile.handle}'s Profile</h2>
-      <ProfilePic />
-
-      {/* Profile Biography */}
-      <div className="profile-row">
-        <h3>Bio: </h3>
-        <Bio />
-      </div>
-
-      {/* Profile Location */}
-      <div className="profile-row">
-        <h3>Location: </h3>
-        <Location />
       </div>
       <h3>
         Lifegoal interests: {props.user.userData.profile.lifeGoalCategories}
