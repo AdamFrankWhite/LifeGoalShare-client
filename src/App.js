@@ -22,6 +22,8 @@ import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
 import LifeGoal from "./pages/LifeGoal";
 
+import LifeGoalCard from "./components/LifeGoalCard";
+
 class App extends Component {
   constructor() {
     super();
@@ -38,6 +40,7 @@ class App extends Component {
       loggedIn: false,
       isAuthenticated: false,
       userComments: [],
+      lifeGoals: [],
     };
   }
 

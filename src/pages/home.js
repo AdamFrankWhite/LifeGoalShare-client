@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllLifeGoals } from "../redux/actions/lifegoalActions";
-import LifeGoalCard from "../components/LifeGoalCard";
+import LifeGoalCard from "../components/LifeGoalCard.js";
 class Home extends Component {
   constructor(props) {
     super();
@@ -23,7 +24,25 @@ class Home extends Component {
         />
       ));
 
-    return <div>{lifeGoals}</div>;
+    const lifeGoalRoutes = this.props.lifegoals.map((lifeGoal) => {
+      console.log(lifeGoal._id);
+      return (
+        <Route
+          path={`/lifegoals/${lifeGoal._id}`}
+          render={(props) => (
+            <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
+          )}
+        />
+      );
+    });
+    return (
+      <Router>
+        <Switch>
+          {lifeGoalRoutes}
+          <div>{lifeGoals}</div>
+        </Switch>
+      </Router>
+    );
   }
 }
 

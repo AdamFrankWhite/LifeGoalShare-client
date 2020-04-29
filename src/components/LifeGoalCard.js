@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+// Material UI
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -6,8 +8,15 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+
+//Redux
+import { connect } from "react-redux";
+// import { viewLifeGoal } from "../redux/actions/lifegoalActions";
 import Comment from "./Comment";
-export default function LifeGoalCard(props) {
+
+function LifeGoalCard(props) {
+  const viewLifeGoal = () => {};
+
   const [toggleComments, setToggleComments] = useState(false);
 
   //TO DO - hook to get profile images
@@ -68,7 +77,7 @@ export default function LifeGoalCard(props) {
             gutterBottom
             variant="h5"
             component="h2"
-            onClick={() => props.goToLifeGoal()}
+            // onClick={() => props.goToLifeGoal()}
           >
             {props.data.lifeGoalName} <i>by {props.data.createdBy.handle}</i>
           </Typography>
@@ -79,7 +88,7 @@ export default function LifeGoalCard(props) {
             variant="body2"
             color="textSecondary"
             component="p"
-            onClick={() => props.goToPost()}
+            // onClick={() => props.goToPost()}
           >
             Latest post: {posts[0]}
           </Typography>
@@ -89,9 +98,18 @@ export default function LifeGoalCard(props) {
         <Button size="small" color="primary">
           Share
         </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        <Link to={`/lifegoals/${props.data._id}`}>
+          <Button
+            onClick={() => {
+              console.log(props.data._id);
+              // viewLifeGoal(props.data._id)
+            }}
+            size="small"
+            color="primary"
+          >
+            Learn More
+          </Button>
+        </Link>
         <Button size="small" color="primary">
           All Posts
         </Button>
@@ -115,3 +133,12 @@ export default function LifeGoalCard(props) {
     </Card>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    lifegoals: state.lifegoals,
+  };
+};
+
+export default connect(mapStateToProps)(LifeGoalCard);

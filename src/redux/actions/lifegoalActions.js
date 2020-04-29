@@ -29,3 +29,8 @@ export const getUserLifeGoals = (userHandle) => (dispatch) => {
       // dispatch({ type: SET_ERRORS, payload: err.response.data });
     });
 };
+
+// export const viewLifeGoal = () => (dispatch) => {
+//   dispatch({type: LOADING_UI})
+//   axios.get()
+// };
