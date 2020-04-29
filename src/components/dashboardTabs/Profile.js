@@ -13,21 +13,37 @@ function Profile(props) {
   );
   const [editLocation, setEditLocation] = useState(false);
   const [editBio, setEditBio] = useState(false);
-  const [imageFile, setImageFile] = useState(
-    props.user.userData.profile.profileImageUrl
-  );
+  const [imageFile, setImageFile] = useState(props.user.userImage);
+  useEffect(() => {
+    setImageFile(props.user.userImage);
+  });
 
-  console.log(props.user);
   const handleImageChange = (e) => {
     const image = e.target.files[0];
-    console.log(image);
     // Create form data
     const formData = new FormData();
     formData.append("file", image);
     //SEND TO SERVER
     props.uploadImage(formData, image);
-    e.preventDefault();
+    console.log(imageFile);
     setImageFile(props.user.userData.profile.profileImageUrl); // need async await, uploadImage, returns blob, which then setImageFile with,
+    console.log(imageFile);
+
+    // function resolveWhenComplete(imgChangeFunc) {
+    //   return new Promise((resolve) => {
+    //     resolve(imgChangeFunc);
+    //   });
+    // }
+
+    // async function f1() {
+    //   console.log(imageFile);
+    //   await resolveWhenComplete(props.uploadImage(formData, image));
+    //   console.log(imageFile);
+    //   setImageFile(props.user.userData.profile.profileImageUrl);
+    //   console.log(imageFile);
+    // }
+
+    // f1();
   };
 
   const updateProfile = () => {

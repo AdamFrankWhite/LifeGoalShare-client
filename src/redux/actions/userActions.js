@@ -38,9 +38,10 @@ export const getUserData = () => (dispatch) => {
     .then((res) => {
       console.log(res.data, "boo");
       dispatch({ type: SET_USER, payload: res.data });
-      // dispatch({type: SET_USER_IMAGE, payload: window.URL.createObjectURL(res.data.profile.profileImageUrl)})
-
-      // this.setState({ userData: data.data, redirect: "dashboard" });
+      dispatch({
+        type: SET_USER_IMAGE,
+        payload: res.data.profile.profileImageUrl,
+      });
     });
 };
 
