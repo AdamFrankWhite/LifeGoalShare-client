@@ -11,7 +11,7 @@ export default function LifeGoalCard(props) {
   const [toggleComments, setToggleComments] = useState(false);
 
   //TO DO - hook to get profile images
-
+  const followLifeGoal = () => {};
   // getPost() {}
   let commentData = props.data.comments;
 
@@ -56,7 +56,9 @@ export default function LifeGoalCard(props) {
   let posts = props.data.posts.map((post) => post.postName);
 
   // get follower images
-  let followers = props.data.followers.map((follower) => follower.followerID);
+  let followers = props.data.followers.map((follower) => (
+    <img className="followerImageMini" src={follower.followerImage}></img>
+  ));
   return (
     <Card className="lifegoal-card">
       <CardActionArea>
@@ -104,6 +106,9 @@ export default function LifeGoalCard(props) {
           {followers.length}{" "}
           {followers.length == 1 ? "Follower:" : "Followers:"} {followers}
         </Button>
+        {/* <Button onClick={() => followLifeGoal()} size="small" color="primary">
+          Follow
+        </Button> */}
       </CardActions>
       {toggleComments && comments}
     </Card>

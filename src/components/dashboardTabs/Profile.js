@@ -29,25 +29,6 @@ function Profile(props) {
     formData.append("file", image);
     //SEND TO SERVER
     props.uploadImage(formData, image);
-    console.log(imageFile);
-    setImageFile(props.user.userData.profile.profileImageUrl); // need async await, uploadImage, returns blob, which then setImageFile with,
-    console.log(imageFile);
-
-    // function resolveWhenComplete(imgChangeFunc) {
-    //   return new Promise((resolve) => {
-    //     resolve(imgChangeFunc);
-    //   });
-    // }
-
-    // async function f1() {
-    //   console.log(imageFile);
-    //   await resolveWhenComplete(props.uploadImage(formData, image));
-    //   console.log(imageFile);
-    //   setImageFile(props.user.userData.profile.profileImageUrl);
-    //   console.log(imageFile);
-    // }
-
-    // f1();
   };
 
   const updateProfile = () => {
@@ -73,12 +54,7 @@ function Profile(props) {
     <div className="profile-cont">
       <h2>{props.user.userData.profile.handle}'s Profile</h2>
       {/* Profile Picture */}
-      <img
-        className="profile-pic"
-        src={imageFile}
-        // src={props.user.userData.profile.profileImageUrl}
-        alt="profile image"
-      ></img>
+      <img className="profile-pic" src={imageFile} alt="profile image"></img>
       <input
         type="file"
         id="fileInput"
@@ -91,7 +67,6 @@ function Profile(props) {
           className="edit-btn"
           onClick={() => {
             document.getElementById("fileInput").click();
-            // axios.post("http://localhost:5000/users/profile/update/img");  UPLOAD IMAGE, THEN UPDATE STATE AND GET NEW IMAGE TO DISPLAY
           }}
         ></EditIcon>
       </Tooltip>
