@@ -13,7 +13,9 @@ function Profile(props) {
   );
   const [editLocation, setEditLocation] = useState(false);
   const [editBio, setEditBio] = useState(false);
-  const [imageFile, setImageFile] = useState("f");
+  const [imageFile, setImageFile] = useState(
+    props.user.userData.profile.profileImageUrl
+  );
 
   console.log(props.user);
   const handleImageChange = (e) => {
@@ -24,7 +26,8 @@ function Profile(props) {
     formData.append("file", image);
     //SEND TO SERVER
     props.uploadImage(formData, image);
-    setImageFile(props.user.userImage); // need async await, uploadImage, returns blob, which then setImageFile with,
+    e.preventDefault();
+    setImageFile(props.user.userData.profile.profileImageUrl); // need async await, uploadImage, returns blob, which then setImageFile with,
   };
 
   const updateProfile = () => {
@@ -52,7 +55,8 @@ function Profile(props) {
       {/* Profile Picture */}
       <img
         className="profile-pic"
-        src={props.user.userImage}
+        src={imageFile}
+        // src={props.user.userData.profile.profileImageUrl}
         alt="profile image"
       ></img>
       <input

@@ -59,42 +59,21 @@ export const logOut = () => (dispatch) => {
 
 export const uploadImage = (formData, file) => (dispatch) => {
   console.log(file);
+
   dispatch({ type: LOADING_UI });
-  dispatch({
-    type: SET_USER_IMAGE,
-    payload: window.URL.createObjectURL(file),
-  });
+
   axios
-    .post("http://localhost:5000/users/profile/", formData, {
+    .post("http://localhost:5000/users/profile/upload", formData, {
       headers: {
         Authorization: window.localStorage.getItem("access_token"),
       },
     })
-    .catch((err) => console.log(err))
     .then((res) => {
-      console.log(res.data.file.filename);
-      axios
-        .post(
-          "http://localhost:5000/users/profile/update/img",
-          { profileImageUrl: res.data.file.filename },
-          {
-            headers: {
-              Authorization: window.localStorage.getItem("access_token"),
-            },
-          }
-        )
-        .then((res) => console.log(res.data))
-
-        .catch((err) => console.log(err));
-      axios
-        .get(
-          `http://localhost:5000/users/profile/image/${res.data.file.filename}`,
-          {
-            headers: {
-              Authorization: window.localStorage.getItem("access_token"),
-            },
-          }
-        )
-        .then((res) => console.log(res));
-    });
+      console.log(res.data);
+      dispatch({
+        type: SET_USER_IMAGE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 };
