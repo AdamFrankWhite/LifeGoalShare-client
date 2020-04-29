@@ -58,6 +58,7 @@ export default function LifeGoalCard(props) {
   // get follower images
   let followers = props.data.followers.map((follower) => (
     <img className="followerImageMini" src={follower.followerImage}></img>
+    //TODO - request image url for each follower - axios.get/image/userID
   ));
   return (
     <Card className="lifegoal-card">

@@ -9,6 +9,7 @@ export const SET_USER_IMAGE = "SET_USER_IMAGE";
 // Lifegoal reducer types
 
 export const GET_ALL_LIFEGOALS = "GET_ALL_LIFEGOALS";
+export const GET_USER_LIFEGOALS = "GET_USER_LIFEGOALS";
 
 // CONTINUE - video 6:19
 
