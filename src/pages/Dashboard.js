@@ -2,17 +2,21 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Comment from "../components/Comment";
 import Profile from "../components/dashboardTabs/Profile";
+import LifeGoalCard from "../components/LifeGoalCard";
 import MyLifeGoals from "../components/dashboardTabs/MyLifeGoals";
 import MyComments from "../components/dashboardTabs/MyComments";
 import Settings from "../components/dashboardTabs/Settings";
 import DashboardMain from "../components/dashboardTabs/DashboardMain";
+
+//Redux
+import { connect } from "react-redux";
 
 // Material UI
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import WallpaperIcon from "@material-ui/icons/Wallpaper";
 import CommentIcon from "@material-ui/icons/Comment";
-function Dashboard() {
+function Dashboard(props) {
   // const myComments = this.props.myComments
   //   .sort((a, b) => (a.comment.createdAt < b.comment.createdAt ? 1 : -1))
   //   .map((comment) => (
@@ -22,6 +26,18 @@ function Dashboard() {
   //       createdAt={comment.comment.createdAt}
   //     />
   //   ));
+  console.log(props.lifegoals);
+  const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
+    console.log(lifeGoal._id);
+    return (
+      <Route
+        path={`/lifegoals/${lifeGoal._id}`}
+        render={(props) => (
+          <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
+        )}
+      />
+    );
+  });
 
   let menuTabs = [
     {
@@ -71,6 +87,7 @@ function Dashboard() {
             <Route path="/dashboard/comments" component={MyComments} />
             <Route path="/dashboard/settings" component={Settings} />
             <Route path="/dashboard/lifegoals" component={MyLifeGoals} />
+            {lifeGoalRoutes}
           </main>
         </Switch>
       </div>
@@ -78,4 +95,11 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    lifegoals: state.lifegoals.lifegoalsData,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);
