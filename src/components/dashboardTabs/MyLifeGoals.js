@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserLifeGoals } from "../../redux/actions/lifegoalActions";
+import LifeGoalCard from "../LifeGoalCard";
 function MyLifeGoals(props) {
+  let lifeGoals = props.lifegoals.userLifeGoals.map((lifeGoal) => (
+    <LifeGoalCard key={lifeGoal._id} data={lifeGoal} />
+  ));
+  useEffect(() => {
+    props.getUserLifeGoals(props.user.userData.profile.handle);
+  }, []);
   return (
     <div>
-      <span
-        onClick={() =>
-          props.getUserLifeGoals(props.user.userData.profile.handle)
-        }
-      >
-        My LifeGoals
-      </span>
+      My LifeGoals
+      {lifeGoals}
     </div>
   );
 }
@@ -18,6 +20,7 @@ function MyLifeGoals(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    lifegoals: state.lifegoals,
   };
 };
 

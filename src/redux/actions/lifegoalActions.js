@@ -21,9 +21,9 @@ export const getUserLifeGoals = (userHandle) => (dispatch) => {
         Authorization: window.localStorage.getItem("access_token"),
       },
     })
-    .then((data) => {
-      console.log(data);
-      // dispatch({ type: GET_USER_LIFEGOALS, payload: data.data });
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: GET_USER_LIFEGOALS, payload: res.data });
     })
     .catch((err) => {
       // dispatch({ type: SET_ERRORS, payload: err.response.data });

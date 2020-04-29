@@ -2,6 +2,7 @@ import { GET_ALL_LIFEGOALS, GET_USER_LIFEGOALS } from "../types";
 
 const initialState = {
   lifegoalsData: [],
+  userLifeGoals: [],
 };
 
 export default function (state = initialState, action) {
