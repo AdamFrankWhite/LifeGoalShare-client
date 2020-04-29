@@ -13,9 +13,13 @@ function Profile(props) {
   );
   const [editLocation, setEditLocation] = useState(false);
   const [editBio, setEditBio] = useState(false);
-  const [imageFile, setImageFile] = useState(props.user.userImage);
+  const [imageFile, setImageFile] = useState(
+    props.user.userData.profile.profileImageUrl
+  );
+
+  //When props update, updates image src
   useEffect(() => {
-    setImageFile(props.user.userImage);
+    setImageFile(props.user.userData.profile.profileImageUrl);
   });
 
   const handleImageChange = (e) => {

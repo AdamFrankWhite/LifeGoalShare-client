@@ -3,7 +3,6 @@ import {
   SET_AUTHENTICATION,
   SET_UNAUTHENTICATED,
   LOADING_UI,
-  SET_USER_IMAGE,
   CLEAR_ERRORS,
   SET_ERRORS,
 } from "../types";
@@ -38,10 +37,6 @@ export const getUserData = () => (dispatch) => {
     .then((res) => {
       console.log(res.data, "boo");
       dispatch({ type: SET_USER, payload: res.data });
-      dispatch({
-        type: SET_USER_IMAGE,
-        payload: res.data.profile.profileImageUrl,
-      });
     });
 };
 
@@ -70,11 +65,11 @@ export const uploadImage = (formData, file) => (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
-      dispatch({
-        type: SET_USER_IMAGE,
-        payload: res.data,
-      });
+      let user = res.data.user;
+      // update profile image property
+      user.profile.profileImageUrl = res.data.clientFileUrl;
+      //update appstate
+      dispatch({ type: SET_USER, payload: user });
     })
     .catch((err) => console.log(err));
 };

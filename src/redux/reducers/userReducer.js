@@ -2,7 +2,6 @@ import {
   SET_USER,
   SET_AUTHENTICATION,
   SET_UNAUTHENTICATED,
-  SET_USER_IMAGE,
   LOADING_UI,
   CLEAR_ERRORS,
   SET_ERRORS,
@@ -13,7 +12,6 @@ const initialState = {
   token: "",
   userData: {},
   loggedIn: false,
-  userImage: {},
 };
 
 //NOTE - if dispatch is called without case for it, it will use default and reset state between dispatches
@@ -35,11 +33,7 @@ export default function (state = initialState, action) {
       };
     case LOADING_UI:
       return { ...state };
-    case SET_USER_IMAGE:
-      return {
-        ...state,
-        userImage: action.payload,
-      };
+
     default:
       return { ...state };
   }
