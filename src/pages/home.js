@@ -1,49 +1,65 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllLifeGoals } from "../redux/actions/lifegoalActions";
 import LifeGoalCard from "../components/LifeGoalCard.js";
-class Home extends Component {
-  constructor(props) {
-    super();
-  }
+import AddLifeGoal from "../pages/AddLifeGoal";
 
-  componentWillMount() {
-    this.props.getAllLifeGoals();
+//Material UI
+import Button from "@material-ui/core/Button";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { makeStyles } from "@material-ui/core/styles";
+function Home(props) {
+  useEffect(
+    () => props.getAllLifeGoals(),
+    []
     //TODO - Home component is working, it is the redirect with SET_AUTHENTICATION action that is changing/resetting application state
-  }
-  render() {
-    const lifeGoals = this.props.lifegoals
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-      .map((lifeGoal) => (
-        <LifeGoalCard
-          key={lifeGoal._id}
-          data={lifeGoal}
-          goToPost={this.props.goToPost}
-          goToLifeGoal={this.props.goToLifeGoal}
-        />
-      ));
+  );
 
-    const lifeGoalRoutes = this.props.lifegoals.map((lifeGoal) => {
-      console.log(lifeGoal._id);
-      return (
-        <Route
-          path={`/lifegoals/${lifeGoal._id}`}
-          render={(props) => (
-            <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
-          )}
-        />
-      );
-    });
+  const lifeGoals = props.lifegoals
+    .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+    .map((lifeGoal) => (
+      <LifeGoalCard
+        key={lifeGoal._id}
+        data={lifeGoal}
+        goToPost={props.goToPost}
+        goToLifeGoal={props.goToLifeGoal}
+      />
+    ));
+
+  const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
+    console.log(lifeGoal._id);
     return (
-      <Router>
+      <Route
+        path={`/lifegoals/${lifeGoal._id}`}
+        render={(props) => (
+          <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
+        )}
+      />
+    );
+  });
+  return (
+    <Router>
+      <div className="home-container">
+        <Link to="/lifegoal/add">
+          <span className="create-lifegoal-btn">
+            Create LifeGoal
+            <AddCircleOutlineIcon />
+          </span>
+        </Link>
         <Switch>
           {lifeGoalRoutes}
-          <div>{lifeGoals}</div>
+          <Route exact path="/">
+            <div>{lifeGoals}</div>
+          </Route>
+          <Route
+            path="/lifegoal/add"
+            render={(props) => <AddLifeGoal {...props} />}
+          />
         </Switch>
-      </Router>
-    );
-  }
+      </div>
+    </Router>
+  );
 }
 
 const mapStateToProps = function (state) {

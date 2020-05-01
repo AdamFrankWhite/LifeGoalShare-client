@@ -20,7 +20,7 @@ import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
-import LifeGoal from "./pages/LifeGoal";
+import AddLifeGoal from "./pages/AddLifeGoal";
 
 import LifeGoalCard from "./components/LifeGoalCard";
 
@@ -114,13 +114,11 @@ class App extends Component {
                   render={(props) => <Post {...props} />}
                 />
               )}
-              {this.state.isAuthenticated && (
-                <Route
-                  path="/lifegoal"
-                  exact
-                  render={(props) => <LifeGoal {...props} />}
-                />
-              )}
+
+              {/* <Route
+                path="/lifegoal/add"
+                render={(props) => <AddLifeGoal {...props} />}
+              /> */}
 
               <Route
                 path="/login"

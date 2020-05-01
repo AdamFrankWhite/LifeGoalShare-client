@@ -110,7 +110,6 @@ $border-radius: 10px;
 // LifeGoal Card
 
 .lifegoal-card {
-  width: 80%;
   margin: 1em auto;
   border: 2px black solid;
   border-radius: $border-radius;
@@ -138,6 +137,31 @@ $border-radius: 10px;
 
 .comment-reply-btn:hover {
   cursor: pointer;
+}
+//Home
+
+.home-container {
+  width: 80%;
+  margin: auto;
+}
+
+.create-lifegoal-btn {
+  margin: 0.5em;
+  margin-left: 83%;
+  width: fit-content;
+  padding: 0.75em;
+  border-radius: 10px;
+  background: brown;
+  color: white;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+}
+
+.create-lifegoal-btn:hover {
+  cursor: pointer;
+  background: rgb(221, 111, 111);
+  box-shadow: 0px 0px 3px rgb(224, 153, 153);
 }
 
 // Dashboard
