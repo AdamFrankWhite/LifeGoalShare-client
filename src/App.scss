@@ -175,6 +175,14 @@ $border-radius: 10px;
 .create-lifegoal-cont > textarea {
   margin-bottom: 0.5em;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
 // Dashboard
 .dashboard-cont {
   display: flex;
