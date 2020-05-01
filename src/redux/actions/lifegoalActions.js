@@ -39,6 +39,8 @@ export const postNewLifeGoal = (formData) => (dispatch) => {
         Authorization: window.localStorage.getItem("access_token"),
       },
     })
-    .then((res) => console.log(res.data))
+    .then((res) => {
+      console.log(res.data);
+    })
     .catch((err) => console.log(err));
 };

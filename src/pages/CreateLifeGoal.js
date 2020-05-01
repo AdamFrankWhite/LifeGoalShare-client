@@ -22,15 +22,47 @@ function CreateLifeGoal(props) {
 
   return (
     <div className="create-lifegoal-cont">
-      <h1>Create New LifeGoal</h1>
+      <h1 className="text-center">Create New LifeGoal</h1>
+      <div className="step-tracker">
+        <div className="form-step-title">
+          <span
+            className={
+              stepCount === 0 ? "step-selected form-step-num" : "form-step-num"
+            }
+          >
+            1
+          </span>
+          <span className="form-step-text">
+            LifeGoal<br></br>Details
+          </span>
+        </div>
+        <div className="form-step-title">
+          <span
+            className={
+              stepCount === 1 ? "step-selected form-step-num" : "form-step-num"
+            }
+          >
+            2
+          </span>
+          <span className="form-step-text">First Post</span>
+        </div>
+        <div className="form-step-title">
+          <span
+            className={
+              stepCount === 2 ? "step-selected form-step-num" : "form-step-num"
+            }
+          >
+            3
+          </span>
+          <span className="form-step-text">Review</span>
+        </div>
+      </div>
+      <div className="progress-bar-cont">
+        <div className={`progress-bar-step-${stepCount}`}></div>
+      </div>
       {/* Step 1 */}
       {stepCount === 0 && (
         <div>
-          <div className="step-tracker">
-            <span className="step-selected">1</span>
-            <span>2</span>
-            <span>3</span>
-          </div>
           <h1>Step 1</h1>
           <h2>Create LifeGoal</h2>
           <div className="multistep-form-fields">
@@ -51,11 +83,6 @@ function CreateLifeGoal(props) {
       {/* Step 2 */}
       {stepCount === 1 && (
         <div>
-          <div className="step-tracker">
-            <span>1</span>
-            <span className="step-selected">2</span>
-            <span>3</span>
-          </div>
           <h1>Step 2</h1>
           <h2>First Post</h2>
           <div className="multistep-form-fields">
@@ -79,11 +106,6 @@ function CreateLifeGoal(props) {
       {/* Step 3 */}
       {stepCount === 2 && (
         <div>
-          <div className="step-tracker">
-            <span>1</span>
-            <span>2</span>
-            <span className="step-selected">3</span>
-          </div>
           <h1>Step 3</h1>
           <h2>Review</h2>
           <h4>LifeGoal Title:</h4>
@@ -97,7 +119,10 @@ function CreateLifeGoal(props) {
           <button onClick={() => setStepCount(stepCount - 1)}>Back</button>
           <span
             className="create-lifegoal-btn"
-            onClick={() => props.postNewLifeGoal(newLifeGoalData)}
+            onClick={() => {
+              console.log(props.user.userData.profile.handle);
+              props.postNewLifeGoal(newLifeGoalData);
+            }}
           >
             Create LifeGoal
             <AddCircleOutlineIcon />
