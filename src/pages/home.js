@@ -3,12 +3,10 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllLifeGoals } from "../redux/actions/lifegoalActions";
 import LifeGoalCard from "../components/LifeGoalCard.js";
-import AddLifeGoal from "../pages/AddLifeGoal";
+import CreateLifeGoal from "./CreateLifeGoal";
 
 //Material UI
-import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { makeStyles } from "@material-ui/core/styles";
 function Home(props) {
   useEffect(
     () => props.getAllLifeGoals(),
@@ -54,7 +52,7 @@ function Home(props) {
           </Route>
           <Route
             path="/lifegoal/add"
-            render={(props) => <AddLifeGoal {...props} />}
+            render={(props) => <CreateLifeGoal {...props} />}
           />
         </Switch>
       </div>

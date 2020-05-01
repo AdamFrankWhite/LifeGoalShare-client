@@ -164,6 +164,17 @@ $border-radius: 10px;
   box-shadow: 0px 0px 3px rgb(224, 153, 153);
 }
 
+.create-lifegoal-cont {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-lifegoal-cont > input,
+.create-lifegoal-cont > textarea {
+  margin-bottom: 0.5em;
+}
 // Dashboard
 .dashboard-cont {
   display: flex;

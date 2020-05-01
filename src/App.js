@@ -20,7 +20,7 @@ import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
-import AddLifeGoal from "./pages/AddLifeGoal";
+import AddLifeGoal from "./pages/CreateLifeGoal";
 
 import LifeGoalCard from "./components/LifeGoalCard";
 

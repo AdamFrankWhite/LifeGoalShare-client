@@ -30,7 +30,15 @@ export const getUserLifeGoals = (userHandle) => (dispatch) => {
     });
 };
 
-// export const viewLifeGoal = () => (dispatch) => {
-//   dispatch({type: LOADING_UI})
-//   axios.get()
-// };
+export const postNewLifeGoal = (formData) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  console.log(formData);
+  axios
+    .post("http://localhost:5000/lifegoals/add", formData, {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+};
