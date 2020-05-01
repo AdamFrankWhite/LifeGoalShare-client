@@ -26,34 +26,52 @@ function CreateLifeGoal(props) {
       {/* Step 1 */}
       {stepCount === 0 && (
         <div>
-          <input
-            placeholder="Your LifeGoal title..."
-            value={lifeGoalName}
-            onChange={(e) => setLifeGoalName(e.target.value)}
-          />
-          <textarea
-            value={lifeGoalDescription}
-            placeholder="LifeGoal description"
-            onChange={(e) => setLifeGoalDescription(e.target.value)}
-          ></textarea>
+          <div className="step-tracker">
+            <span className="step-selected">1</span>
+            <span>2</span>
+            <span>3</span>
+          </div>
+          <h1>Step 1</h1>
+          <h2>Create LifeGoal</h2>
+          <div className="multistep-form-fields">
+            <input
+              placeholder="Your LifeGoal title..."
+              value={lifeGoalName}
+              onChange={(e) => setLifeGoalName(e.target.value)}
+            />
+            <textarea
+              value={lifeGoalDescription}
+              placeholder="LifeGoal description"
+              onChange={(e) => setLifeGoalDescription(e.target.value)}
+            ></textarea>
+          </div>
           <button onClick={() => setStepCount(stepCount + 1)}>Next</button>
         </div>
       )}
       {/* Step 2 */}
       {stepCount === 1 && (
         <div>
-          <input
-            placeholder="Your first post title..."
-            value={initialPostName}
-            onChange={(e) => {
-              setInitialPostName(e.target.value);
-            }}
-          />
-          <textarea
-            placeholder="Your first post content"
-            value={initialPostContent}
-            onChange={(e) => setInitialPostContent(e.target.value)}
-          ></textarea>
+          <div className="step-tracker">
+            <span>1</span>
+            <span className="step-selected">2</span>
+            <span>3</span>
+          </div>
+          <h1>Step 2</h1>
+          <h2>First Post</h2>
+          <div className="multistep-form-fields">
+            <input
+              placeholder="Your first post title..."
+              value={initialPostName}
+              onChange={(e) => {
+                setInitialPostName(e.target.value);
+              }}
+            />
+            <textarea
+              placeholder="Your first post content"
+              value={initialPostContent}
+              onChange={(e) => setInitialPostContent(e.target.value)}
+            ></textarea>
+          </div>
           <button onClick={() => setStepCount(stepCount - 1)}>Back</button>
           <button onClick={() => setStepCount(stepCount + 1)}>Next</button>
         </div>
@@ -61,6 +79,21 @@ function CreateLifeGoal(props) {
       {/* Step 3 */}
       {stepCount === 2 && (
         <div>
+          <div className="step-tracker">
+            <span>1</span>
+            <span>2</span>
+            <span className="step-selected">3</span>
+          </div>
+          <h1>Step 3</h1>
+          <h2>Review</h2>
+          <h4>LifeGoal Title:</h4>
+          <p>{lifeGoalName}</p>
+          <h4>LifeGoal Description</h4>
+          <p>{lifeGoalDescription}</p>
+          <h4>First Post Title:</h4>
+          <p>{initialPostName}</p>
+          <h4>First Post Content:</h4>
+          <p>{initialPostContent}</p>
           <button onClick={() => setStepCount(stepCount - 1)}>Back</button>
           <span
             className="create-lifegoal-btn"

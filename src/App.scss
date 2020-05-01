@@ -171,17 +171,31 @@ $border-radius: 10px;
   flex-direction: column;
 }
 
-.create-lifegoal-cont > input,
-.create-lifegoal-cont > textarea {
+.multistep-form-fields > input,
+.multistep-form-fields > textarea {
   margin-bottom: 0.5em;
 }
-
-.show {
-  display: block;
+.multistep-form-fields {
+  display: flex;
+  flex-direction: column;
 }
 
-.hide {
-  display: none;
+.step-tracker {
+  margin: auto;
+}
+.step-tracker > span {
+  display: inline-block;
+  font-size: 2em;
+  line-height: 2em;
+  text-align: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+.step-selected {
+  background: black;
+  color: white;
 }
 // Dashboard
 .dashboard-cont {
