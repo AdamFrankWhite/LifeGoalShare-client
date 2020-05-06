@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import postImageDefault from "../assets/postImageDefault.jpg";
+import moment from "moment";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -40,14 +41,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard(props) {
+export default function PostCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const formattedDate = moment(props.post.createdAt).format("LL");
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   console.log(props.post);
+
   return (
     <Card className={(classes.root, "lifegoal-post-card")}>
       <CardHeader
@@ -62,7 +64,7 @@ export default function RecipeReviewCard(props) {
           </IconButton>
         }
         title={props.post.postName}
-        subheader="September 14, 2016"
+        subheader={formattedDate}
       />
       <CardMedia
         className={classes.media}

@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
+import RemoveIcon from "@material-ui/icons/Remove";
 import Typography from "@material-ui/core/Typography";
 // Images
 import lifegoalMainDefaultImage from "../assets/lifegoalMainDefaultImage.jpg";
@@ -124,7 +125,13 @@ function LifeGoalMain(props) {
       {showAddPostForm && (
         <div>
           <AddPostForm data={props.data} showForm={showAddPostForm} />
-          <button onClick={() => setShowAddPostForm(false)}>Hide</button>
+          <span
+            onClick={() => setShowAddPostForm(false)}
+            className="create-lifegoal-btn"
+          >
+            Cancel
+            <RemoveIcon />
+          </span>
         </div>
       )}
       <Button
