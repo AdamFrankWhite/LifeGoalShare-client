@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllLifeGoals } from "../redux/actions/lifegoalActions";
-import LifeGoalCard from "../components/LifeGoalCard.js";
+import LifeGoalMain from "../components/LifeGoalMain.js";
+import LifeGoalCard from "../components/LifeGoalCard";
 import CreateLifeGoal from "./CreateLifeGoal";
 
 //Material UI
@@ -31,7 +32,7 @@ function Home(props) {
       <Route
         path={`/lifegoals/${lifeGoal._id}`}
         render={(props) => (
-          <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
+          <LifeGoalMain {...props} key={lifeGoal._id} data={lifeGoal} />
         )}
       />
     );

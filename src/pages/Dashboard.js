@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Comment from "../components/Comment";
 import Profile from "../components/dashboardTabs/Profile";
 import LifeGoalCard from "../components/LifeGoalCard";
+import LifeGoalMain from "../components/LifeGoalMain";
 import MyLifeGoals from "../components/dashboardTabs/MyLifeGoals";
 import MyComments from "../components/dashboardTabs/MyComments";
 import Settings from "../components/dashboardTabs/Settings";
@@ -33,7 +34,7 @@ function Dashboard(props) {
       <Route
         path={`/lifegoals/${lifeGoal._id}`}
         render={(props) => (
-          <LifeGoalCard {...props} key={lifeGoal._id} data={lifeGoal} />
+          <LifeGoalMain {...props} key={lifeGoal._id} data={lifeGoal} />
         )}
       />
     );
