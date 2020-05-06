@@ -10,14 +10,22 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // Images
 import lifegoalMainDefaultImage from "../assets/lifegoalMainDefaultImage.jpg";
+
 //Redux
 import { connect } from "react-redux";
 import Comment from "./Comment";
+// Material UI
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
+import PostCard from "../components/PostCard";
+import AddPostForm from "./AddPostForm";
 
 function LifeGoalMain(props) {
+  //State
   const [imageFile, setImageFile] = useState(
     props.user.userData.profile.profileImageUrl
   );
+  const [showAddPostForm, setShowAddPostForm] = useState(false);
 
   const [toggleComments, setToggleComments] = useState(false);
 
@@ -62,7 +70,7 @@ function LifeGoalMain(props) {
   });
 
   // for finding index, look for parents array last element, to find immediate parent
-  let posts = props.data.posts.map((post) => post.postName);
+  let posts = props.data.posts.map((post) => <PostCard post={post} />);
 
   // get follower images
   let followers = props.data.followers.map((follower) => (
@@ -74,7 +82,8 @@ function LifeGoalMain(props) {
     ? `url(${props.lifeGoalImage})`
     : `url(${lifegoalMainDefaultImage})`;
 
-  console.log(props.lifegoals);
+  console.log(props.user, props.data);
+
   return (
     <div className="lifegoal-main-cont">
       <div
@@ -96,9 +105,28 @@ function LifeGoalMain(props) {
         </div>
         <h2>{props.data.lifeGoalDescription}</h2>
       </div>
-
-      <h3>Latest posts: {posts}</h3>
-
+      {/* Conditional render checks if author of lifeGoal */}
+      {props.user.userData.profile.handle === props.data.createdBy.handle && (
+        // <Link to="/lifegoal/add">
+        <span
+          onClick={() => {
+            !showAddPostForm && setShowAddPostForm(true);
+          }}
+          className="create-lifegoal-btn"
+        >
+          New Post
+          <AddCircleOutlineIcon />
+        </span>
+        // </Link>
+      )}
+      <h3>Latest posts: </h3>
+      <div className="latest-posts">{posts}</div>
+      {showAddPostForm && (
+        <div>
+          <AddPostForm data={props.data} showForm={showAddPostForm} />
+          <button onClick={() => setShowAddPostForm(false)}>Hide</button>
+        </div>
+      )}
       <Button
         onClick={() => setToggleComments(!toggleComments)}
         size="small"

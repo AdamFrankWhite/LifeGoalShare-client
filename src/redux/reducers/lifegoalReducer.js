@@ -1,4 +1,4 @@
-import { GET_ALL_LIFEGOALS, GET_USER_LIFEGOALS } from "../types";
+import { GET_ALL_LIFEGOALS, GET_USER_LIFEGOALS, ADD_NEW_POST } from "../types";
 
 const initialState = {
   lifegoalsData: [],
@@ -17,6 +17,11 @@ export default function (state = initialState, action) {
         ...state,
         userLifeGoals: action.payload,
       };
+    // case ADD_NEW_POST:
+    // return {
+    //   ...state,
+
+    // }
     default:
       return { ...state };
   }

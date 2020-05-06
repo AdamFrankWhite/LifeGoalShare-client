@@ -44,3 +44,17 @@ export const postNewLifeGoal = (formData) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const addNewPost = (postData) => (dispatch) => {
+  axios
+    .post("http://localhost:5000/lifegoals/post/add", postData, {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      // dispatch({type: , payload: res.data})
+    })
+    .catch((err) => console.log(err));
+};
