@@ -28,6 +28,7 @@ function Profile(props) {
     const formData = new FormData();
     formData.append("file", image);
     //SEND TO SERVER
+    // NEED TO VALIDATE INPUT
     props.uploadImage(formData, image);
   };
 
