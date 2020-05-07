@@ -97,7 +97,7 @@ function LifeGoalMain(props) {
     // console.log(lifeGoalPost.postID);
     return (
       <Route
-        path={`/posts/${lifeGoalPost.postID}`}
+        path={`${match.path}/posts/${lifeGoalPost.postID}`}
         render={(props) => (
           <LifeGoalPost
             {...props}
@@ -108,6 +108,37 @@ function LifeGoalMain(props) {
       />
     );
   });
+
+  const LatestPosts = () => (
+    <div>
+      <div className="latest-posts">{posts}</div>
+      {showAddPostForm && (
+        <div>
+          <AddPostForm data={props.data} showForm={showAddPostForm} />
+          <span
+            onClick={() => setShowAddPostForm(false)}
+            className="create-lifegoal-btn"
+          >
+            Cancel
+            <RemoveIcon />
+          </span>
+        </div>
+      )}
+      <Button
+        onClick={() => setToggleComments(!toggleComments)}
+        size="small"
+        color="primary"
+      >
+        Comments ({comments.length})
+      </Button>
+      <Button size="small" color="primary">
+        {followers.length} {followers.length == 1 ? "Follower:" : "Followers:"}{" "}
+        {followers}
+      </Button>
+      <div></div>
+      {toggleComments && comments}
+    </div>
+  );
   return (
     <div className="lifegoal-main-cont">
       <div
@@ -145,35 +176,9 @@ function LifeGoalMain(props) {
       )}
       <h3>Latest posts: </h3>
       <Switch>
-        <div>
-          <div className="latest-posts">{posts}</div>
-          {showAddPostForm && (
-            <div>
-              <AddPostForm data={props.data} showForm={showAddPostForm} />
-              <span
-                onClick={() => setShowAddPostForm(false)}
-                className="create-lifegoal-btn"
-              >
-                Cancel
-                <RemoveIcon />
-              </span>
-            </div>
-          )}
-          <Button
-            onClick={() => setToggleComments(!toggleComments)}
-            size="small"
-            color="primary"
-          >
-            Comments ({comments.length})
-          </Button>
-          <Button size="small" color="primary">
-            {followers.length}{" "}
-            {followers.length == 1 ? "Follower:" : "Followers:"} {followers}
-          </Button>
-          <div></div>
-          {toggleComments && comments}
-        </div>
-        {/* {lifeGoalPostRoutes} */}
+        <Route exact={true} path={`${match.path}/`} component={LatestPosts} />
+
+        {lifeGoalPostRoutes}
       </Switch>
     </div>
   );

@@ -83,7 +83,7 @@ function Dashboard(props) {
         <Switch>
           {/* Tabs */}
           <main className="dashboard-main">
-            <Route exact path="/dashboard" component={DashboardMain} />
+            <Route exact={true} path="/dashboard" component={DashboardMain} />
             <Route path="/dashboard/profile" component={Profile} />
             <Route path="/dashboard/comments" component={MyComments} />
             <Route path="/dashboard/settings" component={Settings} />

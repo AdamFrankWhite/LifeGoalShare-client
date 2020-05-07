@@ -80,12 +80,12 @@ export default function PostCard(props) {
           View Post
         </span>
       </Link>
-      <Route
+      {/* <Route
         path={`${match.path}/posts/${props.post.postID}`}
         render={(props) => {
           return <LifeGoalPost {...props} key={props.post} data={props.post} />;
         }}
-      />
+      /> */}
       <CardMedia
         className={classes.media}
         image={props.post.postImage ? props.post.postImage : postImageDefault}
