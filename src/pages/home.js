@@ -27,7 +27,7 @@ function Home(props) {
     ));
 
   const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
-    console.log(lifeGoal._id);
+    // console.log(lifeGoal._id);
     return (
       <Route
         path={`/lifegoals/${lifeGoal._id}`}
@@ -40,11 +40,9 @@ function Home(props) {
   return (
     <Router>
       <div className="home-container">
-        <Link to="/lifegoal/add">
-          <span className="create-lifegoal-btn">
-            Create LifeGoal
-            <AddCircleOutlineIcon />
-          </span>
+        <Link className="create-lifegoal-btn" to="/lifegoal/add">
+          Create LifeGoal
+          <AddCircleOutlineIcon />
         </Link>
         <Switch>
           {lifeGoalRoutes}

@@ -1,4 +1,6 @@
 import React from "react";
+
+import { Route, Switch, Link, useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -18,6 +20,8 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import postImageDefault from "../assets/postImageDefault.jpg";
 import moment from "moment";
+
+import LifeGoalPost from "./LifeGoalPost";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -40,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
 }));
-
 export default function PostCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -48,7 +51,9 @@ export default function PostCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(props.post);
+  // console.log(props.post);
+
+  let match = useRouteMatch();
 
   return (
     <Card className={(classes.root, "lifegoal-post-card")}>
@@ -65,6 +70,21 @@ export default function PostCard(props) {
         }
         title={props.post.postName}
         subheader={formattedDate}
+      />
+      <Link to={`${match.url}/posts/${props.post.postID}`}>
+        <span
+          onClick={() => {
+            console.log("Go to post " + props.post.postID);
+          }}
+        >
+          View Post
+        </span>
+      </Link>
+      <Route
+        path={`${match.path}/posts/${props.post.postID}`}
+        render={(props) => {
+          return <LifeGoalPost {...props} key={props.post} data={props.post} />;
+        }}
       />
       <CardMedia
         className={classes.media}

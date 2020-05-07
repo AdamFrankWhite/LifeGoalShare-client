@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
+
 // Material UI
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -20,7 +26,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 import PostCard from "../components/PostCard";
 import AddPostForm from "./AddPostForm";
-
+import LifeGoalPost from "./LifeGoalPost";
 function LifeGoalMain(props) {
   //State
   const [imageFile, setImageFile] = useState(
@@ -28,7 +34,7 @@ function LifeGoalMain(props) {
   );
   const [showAddPostForm, setShowAddPostForm] = useState(false);
 
-  const [toggleComments, setToggleComments] = useState(false);
+  const [toggleComments, setToggleComments] = useState(true);
 
   //TO DO - hook to get profile images
   let commentData = props.data.comments;
@@ -63,7 +69,7 @@ function LifeGoalMain(props) {
     return (
       <Comment
         comment={comment}
-        margin={{ marginLeft: marginSize }}
+        margin={{ marginLeft: marginSize, marginRight: "1em" }}
         lifeGoalID={props.data._id}
         parents={parents}
       />
@@ -83,8 +89,25 @@ function LifeGoalMain(props) {
     ? `url(${props.lifeGoalImage})`
     : `url(${lifegoalMainDefaultImage})`;
 
-  console.log(props.user, props.data);
+  // console.log(props.user, props.data);
 
+  let match = useRouteMatch();
+  // LifeGoalPost routes
+  const lifeGoalPostRoutes = props.data.posts.map((lifeGoalPost) => {
+    // console.log(lifeGoalPost.postID);
+    return (
+      <Route
+        path={`/posts/${lifeGoalPost.postID}`}
+        render={(props) => (
+          <LifeGoalPost
+            {...props}
+            key={lifeGoalPost.postID}
+            data={lifeGoalPost}
+          />
+        )}
+      />
+    );
+  });
   return (
     <div className="lifegoal-main-cont">
       <div
@@ -121,33 +144,37 @@ function LifeGoalMain(props) {
         // </Link>
       )}
       <h3>Latest posts: </h3>
-      <div className="latest-posts">{posts}</div>
-      {showAddPostForm && (
+      <Switch>
         <div>
-          <AddPostForm data={props.data} showForm={showAddPostForm} />
-          <span
-            onClick={() => setShowAddPostForm(false)}
-            className="create-lifegoal-btn"
+          <div className="latest-posts">{posts}</div>
+          {showAddPostForm && (
+            <div>
+              <AddPostForm data={props.data} showForm={showAddPostForm} />
+              <span
+                onClick={() => setShowAddPostForm(false)}
+                className="create-lifegoal-btn"
+              >
+                Cancel
+                <RemoveIcon />
+              </span>
+            </div>
+          )}
+          <Button
+            onClick={() => setToggleComments(!toggleComments)}
+            size="small"
+            color="primary"
           >
-            Cancel
-            <RemoveIcon />
-          </span>
+            Comments ({comments.length})
+          </Button>
+          <Button size="small" color="primary">
+            {followers.length}{" "}
+            {followers.length == 1 ? "Follower:" : "Followers:"} {followers}
+          </Button>
+          <div></div>
+          {toggleComments && comments}
         </div>
-      )}
-      <Button
-        onClick={() => setToggleComments(!toggleComments)}
-        size="small"
-        color="primary"
-      >
-        Comments ({comments.length})
-      </Button>
-
-      <Button size="small" color="primary">
-        {followers.length} {followers.length == 1 ? "Follower:" : "Followers:"}{" "}
-        {followers}
-      </Button>
-
-      {toggleComments && comments}
+        {/* {lifeGoalPostRoutes} */}
+      </Switch>
     </div>
   );
 }

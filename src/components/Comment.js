@@ -14,9 +14,12 @@ function Comment(props) {
   return (
     <div className="goal-comment-cont" style={props.margin}>
       <div className="goal-comment">
-        <p>
-          {author} {comment}
-        </p>
+        <div>
+          <span className="comment-user">{author}</span>
+          <span className="comment-time">
+            {moment(props.comment.createdAt).fromNow()}
+          </span>
+        </div>
         {props.loggedIn && (
           <span
             onClick={() => setToggleReplyInput(!toggleReplyInput)}
@@ -26,7 +29,8 @@ function Comment(props) {
           </span>
         )}
       </div>
-      <p>{moment(props.comment.createdAt).fromNow()}</p>
+      <p className="comment-content"> {comment}</p>
+
       {toggleReplyInput && (
         <ReplyInput lifeGoalID={props.lifeGoalID} parents={props.parents} />
       )}
