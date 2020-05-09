@@ -20,7 +20,7 @@ import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
-
+import CreateLifeGoal from "./pages/CreateLifeGoal";
 //History
 import history from "./history";
 
@@ -29,8 +29,6 @@ class App extends Component {
     super();
     this.handleRedirect = this.handleRedirect.bind(this);
     this.getComments = this.getComments.bind(this);
-    this.goToPost = this.goToPost.bind(this);
-    this.goToLifeGoal = this.goToLifeGoal.bind(this);
     this.state = {
       username: "",
       password: "",
@@ -54,14 +52,6 @@ class App extends Component {
       });
   }
 
-  goToPost() {
-    this.setState({ redirect: "post" });
-  }
-
-  goToLifeGoal() {
-    this.setState({ redirect: "lifegoal" });
-  }
-
   componentDidMount() {
     // this.setState({ isAuthenticated: store.getState().user.authenticated });
     //needs to also authenticate on update, otherwise out of sync
@@ -80,17 +70,7 @@ class App extends Component {
           {this.handleRedirect()}
           <NavBar logout={this.handleLogout} />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Home
-                  {...props}
-                  goToPost={this.goToPost}
-                  goToLifeGoal={this.goToLifeGoal}
-                />
-              )}
-            />
+            <Route exact path="/" render={(props) => <Home {...props} />} />
             {/* Protected routes */}
             {/* {this.state.isAuthenticated && ( */}
             <Route
@@ -124,6 +104,10 @@ class App extends Component {
                 )}
               /> */}
             <Route path="/signup" component={SignUp} />
+            {/* <Route
+              path="/lifegoal/add"
+              render={(props) => <CreateLifeGoal {...props} />}
+            /> */}
           </Switch>
         </Router>
       </div>

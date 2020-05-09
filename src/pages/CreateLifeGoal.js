@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 import { postNewLifeGoal } from "../redux/actions/lifegoalActions";
 //Material UI
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 function CreateLifeGoal(props) {
+  let match = useRouteMatch();
+  console.log(match.url);
   const [lifeGoalName, setLifeGoalName] = useState("");
   const [lifeGoalDescription, setLifeGoalDescription] = useState("");
   const [initialPostName, setInitialPostName] = useState("");
