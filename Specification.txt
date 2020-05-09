@@ -9,6 +9,7 @@ issue with reducer overwriting state of another reducer - the issue was in the r
 
 issue of undefined localStorage object on refresh - turned out, was calling login on refresh, without username/password, in doing so, overwriting token with undefined. fixed by creating new action for authenticateOnRefresh
 
+issue of routes not matching to paths - issue was having multiple routers in app - only need one!! then it doesn't matter where you declare your routes - declare them where you want your component
 TODO: 
 
 history,

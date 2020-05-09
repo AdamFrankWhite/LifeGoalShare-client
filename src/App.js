@@ -5,11 +5,12 @@ import {
   Redirect,
   Route,
   Switch,
+  withRouter,
 } from "react-router-dom";
 import "./App.scss";
 
 // Redux
-import store from "./redux/store";
+import { connect } from "react-redux";
 // import { Provider } from "react-redux";
 
 import axios from "axios";
@@ -21,6 +22,7 @@ import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
 import CreateLifeGoal from "./pages/CreateLifeGoal";
+import LifeGoalMain from "./components/LifeGoalMain";
 //History
 import history from "./history";
 
@@ -63,57 +65,69 @@ class App extends Component {
   }
 
   render() {
+    const lifeGoalRoutes = this.props.lifegoals.map((lifeGoal) => {
+      console.log(this.props.lifegoals);
+      return (
+        <Route
+          path={`/lifegoals/${lifeGoal._id}`}
+          render={(props) => (
+            <LifeGoalMain {...props} key={lifeGoal._id} data={lifeGoal} />
+          )}
+        />
+      );
+    });
     return (
       // <Provider store={store}>
       <div className="App">
         <Router history={history}>
           {this.handleRedirect()}
           <NavBar logout={this.handleLogout} />
-          <Switch>
-            <Route exact path="/" render={(props) => <Home {...props} />} />
-            {/* Protected routes */}
-            {/* {this.state.isAuthenticated && ( */}
-            <Route
-              path="/dashboard"
-              render={(props) => (
-                <Dashboard
-                  {...props}
-                  getComments={this.getComments}
-                  myComments={this.state.userComments}
-                />
-              )}
-            />
-            {this.state.isAuthenticated && (
+          <div className="home-container">
+            <Switch>
+              {lifeGoalRoutes}
+              <Route
+                path="/lifegoal/add"
+                render={(props) => <CreateLifeGoal {...props} />}
+              />
+              <Route exact path="/" render={(props) => <Home {...props} />} />
+              {/* Protected routes */}
+
+              <Route
+                path="/dashboard"
+                render={(props) => (
+                  <Dashboard
+                    {...props}
+                    getComments={this.getComments}
+                    myComments={this.state.userComments}
+                  />
+                )}
+              />
+
               <Route
                 path="/post"
                 exact
                 render={(props) => <Post {...props} />}
               />
-            )}
-            {/* <Route
-                path="/lifegoal/add"
-                render={(props) => <AddLifeGoal {...props} />}
-              /> */}
-            <Route path="/login">
-              {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
-            </Route>
-            {/* <Route
-                path="/login"
-                render={(props) => (
-                  <LogIn {...props} handleRedirect={this.handleRedirect} />
-                )}
-              /> */}
-            <Route path="/signup" component={SignUp} />
-            {/* <Route
-              path="/lifegoal/add"
-              render={(props) => <CreateLifeGoal {...props} />}
-            /> */}
-          </Switch>
+
+              <Route path="/login">
+                {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
+              </Route>
+              <Route path="/signup" component={SignUp} />
+            </Switch>
+          </div>{" "}
         </Router>
       </div>
+
       // </Provider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    lifegoals: state.lifegoals.lifegoalsData,
+  };
+};
+
+export default connect(mapStateToProps)(App);

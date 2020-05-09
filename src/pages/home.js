@@ -46,24 +46,19 @@ function Home(props) {
     );
   });
   return (
-    <Router>
-      <div className="home-container">
-        <Link className="create-lifegoal-btn" to={"/lifegoal/add"}>
-          Create LifeGoal
-          <AddCircleOutlineIcon />
-        </Link>
-        <Switch>
-          {lifeGoalRoutes}
-          <Route exact path="/">
-            <div>{lifeGoals}</div>
-          </Route>
-          <Route
-            path="/lifegoal/add"
-            render={(props) => <CreateLifeGoal {...props} />}
-          />
-        </Switch>
-      </div>
-    </Router>
+    <div className="home-container">
+      <Link className="create-lifegoal-btn" to={"/lifegoal/add"}>
+        Create LifeGoal
+        <AddCircleOutlineIcon />
+      </Link>
+
+      {/* {lifeGoalRoutes} */}
+      <div>{lifeGoals}</div>
+      {/* <Route
+        path="/lifegoal/add"
+        render={(props) => <CreateLifeGoal {...props} />}
+      /> */}
+    </div>
   );
 }
 

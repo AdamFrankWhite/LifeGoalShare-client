@@ -75,24 +75,24 @@ function Dashboard(props) {
     </Link>
   ));
   return (
-    <Router>
-      <div className="dashboard-cont">
-        <nav className="sidebar">
-          <ul>{sidebarMenu}</ul>
-        </nav>
-        <Switch>
-          {/* Tabs */}
-          <main className="dashboard-main">
-            <Route exact={true} path="/dashboard" component={DashboardMain} />
-            <Route path="/dashboard/profile" component={Profile} />
-            <Route path="/dashboard/comments" component={MyComments} />
-            <Route path="/dashboard/settings" component={Settings} />
-            <Route path="/dashboard/lifegoals" component={MyLifeGoals} />
-            {lifeGoalRoutes}
-          </main>
-        </Switch>
-      </div>
-    </Router>
+    // <Router>
+    <div className="dashboard-cont">
+      <nav className="sidebar">
+        <ul>{sidebarMenu}</ul>
+      </nav>
+      <Switch>
+        {/* Tabs */}
+        <main className="dashboard-main">
+          <Route exact={true} path="/dashboard" component={DashboardMain} />
+          <Route path="/dashboard/profile" component={Profile} />
+          <Route path="/dashboard/comments" component={MyComments} />
+          <Route path="/dashboard/settings" component={Settings} />
+          <Route path="/dashboard/lifegoals" component={MyLifeGoals} />
+          {lifeGoalRoutes}
+        </main>
+      </Switch>
+    </div>
+    // </Router>
   );
 }
 
