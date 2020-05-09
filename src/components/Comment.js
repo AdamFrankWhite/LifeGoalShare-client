@@ -34,8 +34,8 @@ function Comment(props) {
       {toggleReplyInput && (
         <ReplyInput
           commentType={props.postID ? "post" : "lifeGoal"}
+          // ID prop, checks when postcomment or lifegoal comment
           ID={props.postID ? props.postID : props.lifeGoalID}
-          // Parents prop, checks when postcomment or lifegoal comment
           parents={props.parents}
         />
       )}

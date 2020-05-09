@@ -18,6 +18,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import Button from "@material-ui/core/Button";
+
 import postImageDefault from "../assets/postImageDefault.jpg";
 import moment from "moment";
 
@@ -51,7 +53,7 @@ export default function PostCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  // console.log(props.post);
+  console.log(props.post);
 
   let match = useRouteMatch();
 
@@ -80,12 +82,9 @@ export default function PostCard(props) {
           View Post
         </span>
       </Link>
-      {/* <Route
-        path={`${match.path}/posts/${props.post.postID}`}
-        render={(props) => {
-          return <LifeGoalPost {...props} key={props.post} data={props.post} />;
-        }}
-      /> */}
+      <Button size="small" color="primary">
+        Comments ({props.post.comments.length})
+      </Button>
       <CardMedia
         className={classes.media}
         image={props.post.postImage ? props.post.postImage : postImageDefault}

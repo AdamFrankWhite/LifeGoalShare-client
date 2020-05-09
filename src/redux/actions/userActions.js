@@ -7,18 +7,26 @@ import {
   SET_ERRORS,
 } from "../types";
 import axios from "axios";
+import history from "../../history";
 
 export const loginUser = (userData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post("http://localhost:5000/users/login", userData)
     .then((res) => {
-      dispatch({ type: SET_AUTHENTICATION, payload: res.data.token });
-      dispatch({ type: LOADING_UI, payload: false });
+      if (res.data.token) {
+        console.log("Successful login");
+        dispatch({ type: SET_AUTHENTICATION, payload: res.data.token });
+        dispatch({ type: LOADING_UI, payload: false });
 
-      // dispatch({ type: CLEAR_ERRORS });
-      window.localStorage.setItem("access_token", res.data.token);
-      dispatch(getUserData());
+        // dispatch({ type: CLEAR_ERRORS });
+        window.localStorage.setItem("access_token", res.data.token);
+        dispatch(getUserData());
+
+        // history.push(`/dashboard`);
+      } else if (res.data.status === 401) {
+        console.log("Username/password incorrect");
+      }
     })
     .catch((err) => {
       // dispatch({ type: SET_ERRORS, payload: err.response.data });

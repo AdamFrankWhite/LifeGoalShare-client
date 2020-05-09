@@ -20,9 +20,9 @@ import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
-import AddLifeGoal from "./pages/CreateLifeGoal";
 
-import LifeGoalCard from "./components/LifeGoalCard";
+//History
+import history from "./history";
 
 class App extends Component {
   constructor() {
@@ -76,7 +76,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <Router>
+          <Router history={history}>
             {this.handleRedirect()}
             <NavBar store={store} logout={this.handleLogout} />
             <Switch>
@@ -91,22 +91,18 @@ class App extends Component {
                   />
                 )}
               />
-
               {/* Protected routes */}
-              {this.state.isAuthenticated && (
-                <Route
-                  path="/dashboard"
-                  exact
-                  render={(props) => (
-                    <Dashboard
-                      {...props}
-                      getComments={this.getComments}
-                      myComments={this.state.userComments}
-                    />
-                  )}
-                />
-              )}
-
+              {/* {this.state.isAuthenticated && ( */}
+              <Route
+                path="/dashboard"
+                render={(props) => (
+                  <Dashboard
+                    {...props}
+                    getComments={this.getComments}
+                    myComments={this.state.userComments}
+                  />
+                )}
+              />
               {this.state.isAuthenticated && (
                 <Route
                   path="/post"
@@ -114,18 +110,19 @@ class App extends Component {
                   render={(props) => <Post {...props} />}
                 />
               )}
-
               {/* <Route
                 path="/lifegoal/add"
                 render={(props) => <AddLifeGoal {...props} />}
               /> */}
-
-              <Route
+              <Route path="/login">
+                {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
+              </Route>
+              {/* <Route
                 path="/login"
                 render={(props) => (
                   <LogIn {...props} handleRedirect={this.handleRedirect} />
                 )}
-              />
+              /> */}
               <Route path="/signup" component={SignUp} />
             </Switch>
           </Router>
