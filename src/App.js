@@ -65,8 +65,8 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.user);
     const lifeGoalRoutes = this.props.lifegoals.map((lifeGoal) => {
-      console.log(this.props.lifegoals);
       return (
         <Route
           path={`/lifegoals/${lifeGoal._id}`}
@@ -110,7 +110,11 @@ class App extends Component {
               />
 
               <Route path="/login">
-                {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
+                {this.props.user.authenticated ? (
+                  <Redirect to="/dashboard" />
+                ) : (
+                  <LogIn />
+                )}
               </Route>
               <Route path="/signup" component={SignUp} />
             </Switch>
@@ -126,6 +130,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
+    user: state.user,
     lifegoals: state.lifegoals.lifegoalsData,
   };
 };
