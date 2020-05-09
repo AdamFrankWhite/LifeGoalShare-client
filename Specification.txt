@@ -13,4 +13,5 @@ issue of routes not matching to paths - issue was having multiple routers in app
 TODO: 
 
 history,
+isomorphic js - best for seo and address bar
 redirects
