@@ -77,7 +77,6 @@ class App extends Component {
       );
     });
     return (
-      // <Provider store={store}>
       <div className="App">
         <Router history={history}>
           {this.handleRedirect()}
@@ -91,7 +90,9 @@ class App extends Component {
               />
               <Route exact path="/" render={(props) => <Home {...props} />} />
               {/* Protected routes */}
-
+              <Route path="/logout">
+                <Redirect to="/"></Redirect>
+              </Route>
               <Route
                 path="/dashboard"
                 render={(props) => (
@@ -121,8 +122,6 @@ class App extends Component {
           </div>{" "}
         </Router>
       </div>
-
-      // </Provider>
     );
   }
 }
