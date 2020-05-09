@@ -8,3 +8,8 @@ issue with reducer overwriting state of another reducer - the issue was in the r
 
 
 issue of undefined localStorage object on refresh - turned out, was calling login on refresh, without username/password, in doing so, overwriting token with undefined. fixed by creating new action for authenticateOnRefresh
+
+TODO: 
+
+history,
+redirects

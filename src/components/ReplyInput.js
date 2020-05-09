@@ -6,12 +6,22 @@ function ReplyInput(props) {
   const [newComment, setNewComment] = useState("");
 
   const addComment = () => {
-    let data = {
-      lifeGoalID: props.lifeGoalID,
-      comment: newComment,
-      parentComments: props.parents,
-    };
-    postComment(data);
+    if (props.commentType === "post") {
+      let data = {
+        postID: props.ID,
+        comment: newComment,
+        parentComments: props.parents,
+      };
+      postComment(data, "post/comment");
+    }
+    if (props.commentType === "lifeGoal") {
+      let data = {
+        lifeGoalID: props.ID,
+        comment: newComment,
+        parentComments: props.parents,
+      };
+      postComment(data, "comment/new");
+    }
   };
 
   return (
@@ -24,9 +34,9 @@ function ReplyInput(props) {
 
 export default connect()(ReplyInput);
 
-function postComment(data) {
+function postComment(data, commentType) {
   axios
-    .post("http://localhost:5000/lifegoals/comment/post", data, {
+    .post(`http://localhost:5000/lifegoals/${commentType}`, data, {
       headers: {
         Authorization: window.localStorage.getItem("access_token"),
       },

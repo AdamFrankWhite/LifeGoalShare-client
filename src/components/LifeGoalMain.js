@@ -92,9 +92,10 @@ function LifeGoalMain(props) {
   // console.log(props.user, props.data);
 
   let match = useRouteMatch();
+  let lifeGoalID = props.data._id;
   // LifeGoalPost routes
   const lifeGoalPostRoutes = props.data.posts.map((lifeGoalPost) => {
-    // console.log(lifeGoalPost.postID);
+    console.log(props.data);
     return (
       <Route
         path={`${match.path}/posts/${lifeGoalPost.postID}`}
@@ -103,6 +104,7 @@ function LifeGoalMain(props) {
             {...props}
             key={lifeGoalPost.postID}
             data={lifeGoalPost}
+            lifeGoalID={lifeGoalID}
           />
         )}
       />
@@ -111,19 +113,9 @@ function LifeGoalMain(props) {
 
   const LatestPosts = () => (
     <div>
+      <h3>Latest posts: </h3>
       <div className="latest-posts">{posts}</div>
-      {showAddPostForm && (
-        <div>
-          <AddPostForm data={props.data} showForm={showAddPostForm} />
-          <span
-            onClick={() => setShowAddPostForm(false)}
-            className="create-lifegoal-btn"
-          >
-            Cancel
-            <RemoveIcon />
-          </span>
-        </div>
-      )}
+
       <Button
         onClick={() => setToggleComments(!toggleComments)}
         size="small"
@@ -174,7 +166,19 @@ function LifeGoalMain(props) {
         </span>
         // </Link>
       )}
-      <h3>Latest posts: </h3>
+      {showAddPostForm && (
+        <div>
+          <AddPostForm data={props.data} showForm={showAddPostForm} />
+          <span
+            onClick={() => setShowAddPostForm(false)}
+            className="create-lifegoal-btn"
+          >
+            Cancel
+            <RemoveIcon />
+          </span>
+        </div>
+      )}
+
       <Switch>
         <Route exact={true} path={`${match.path}/`} component={LatestPosts} />
 
