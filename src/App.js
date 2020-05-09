@@ -10,7 +10,7 @@ import "./App.scss";
 
 // Redux
 import store from "./redux/store";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 
 import axios from "axios";
 
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isAuthenticated: store.getState().user.authenticated });
+    // this.setState({ isAuthenticated: store.getState().user.authenticated });
     //needs to also authenticate on update, otherwise out of sync
   }
 
@@ -74,60 +74,60 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
-          <Router history={history}>
-            {this.handleRedirect()}
-            <NavBar store={store} logout={this.handleLogout} />
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <Home
-                    {...props}
-                    goToPost={this.goToPost}
-                    goToLifeGoal={this.goToLifeGoal}
-                  />
-                )}
-              />
-              {/* Protected routes */}
-              {/* {this.state.isAuthenticated && ( */}
-              <Route
-                path="/dashboard"
-                render={(props) => (
-                  <Dashboard
-                    {...props}
-                    getComments={this.getComments}
-                    myComments={this.state.userComments}
-                  />
-                )}
-              />
-              {this.state.isAuthenticated && (
-                <Route
-                  path="/post"
-                  exact
-                  render={(props) => <Post {...props} />}
+      // <Provider store={store}>
+      <div className="App">
+        <Router history={history}>
+          {this.handleRedirect()}
+          <NavBar logout={this.handleLogout} />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home
+                  {...props}
+                  goToPost={this.goToPost}
+                  goToLifeGoal={this.goToLifeGoal}
                 />
               )}
-              {/* <Route
+            />
+            {/* Protected routes */}
+            {/* {this.state.isAuthenticated && ( */}
+            <Route
+              path="/dashboard"
+              render={(props) => (
+                <Dashboard
+                  {...props}
+                  getComments={this.getComments}
+                  myComments={this.state.userComments}
+                />
+              )}
+            />
+            {this.state.isAuthenticated && (
+              <Route
+                path="/post"
+                exact
+                render={(props) => <Post {...props} />}
+              />
+            )}
+            {/* <Route
                 path="/lifegoal/add"
                 render={(props) => <AddLifeGoal {...props} />}
               /> */}
-              <Route path="/login">
-                {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
-              </Route>
-              {/* <Route
+            <Route path="/login">
+              {this.state.loggedIn ? <Redirect to="/dashboard" /> : <LogIn />}
+            </Route>
+            {/* <Route
                 path="/login"
                 render={(props) => (
                   <LogIn {...props} handleRedirect={this.handleRedirect} />
                 )}
               /> */}
-              <Route path="/signup" component={SignUp} />
-            </Switch>
-          </Router>
-        </div>
-      </Provider>
+            <Route path="/signup" component={SignUp} />
+          </Switch>
+        </Router>
+      </div>
+      // </Provider>
     );
   }
 }
