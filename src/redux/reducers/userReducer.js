@@ -5,6 +5,8 @@ import {
   LOADING_UI,
   CLEAR_ERRORS,
   SET_ERRORS,
+  SUCCESS_RES,
+  FAIL_RES,
 } from "../types";
 
 const initialState = {
@@ -12,6 +14,9 @@ const initialState = {
   token: "",
   userData: {},
   loggedIn: false,
+  loading: false,
+  success_res: false,
+  fail_res: false,
 };
 
 //NOTE - if dispatch is called without case for it, it will use default and reset state between dispatches
@@ -32,8 +37,11 @@ export default function (state = initialState, action) {
         userData: action.payload,
       };
     case LOADING_UI:
-      return { ...state };
-
+      return { ...state, loading: action.payload };
+    case SUCCESS_RES:
+      return { ...state, success_res: action.payload };
+    case FAIL_RES:
+      return { ...state, fail_res: action.payload };
     default:
       return { ...state };
   }

@@ -24,6 +24,10 @@ a {
 .inline-block {
   display: inline-block;
 }
+
+.pr-1 {
+  padding-right: 0.25em;
+}
 /* == NavBar == */
 
 nav {
@@ -127,13 +131,18 @@ $border-radius: 10px;
   margin: 1em auto;
   border: 2px black solid;
   border-radius: $border-radius;
+  box-shadow: 1px 1px 4px lightgray;
 }
-
+.comment-cont {
+  width: 70%;
+  margin: auto;
+}
 .goal-comment-cont {
   padding: 0.75em 1.25em;
   border: maroon 1px solid;
-  border-radius: calc(#{$border-radius/2});
+  border-radius: calc(#{$border-radius/3});
   margin: 0.5em auto;
+  box-shadow: 1px 1px 4px gray;
 }
 
 .goal-comment {
@@ -156,9 +165,25 @@ $border-radius: 10px;
   text-align: left;
   margin: 0.25em auto;
 }
+.comment-reply-btn {
+  padding: 0.25em;
 
+  border-radius: 5px;
+}
 .comment-reply-btn:hover {
   cursor: pointer;
+  color: darkgreen;
+  text-shadow: 1px 1px 1px lightgreen;
+  transition: 0.1s;
+}
+
+.reply-cont {
+  width: 70%;
+  display: flex;
+  margin: auto;
+  textarea {
+    width: 70%;
+  }
 }
 //Home
 
@@ -167,7 +192,7 @@ $border-radius: 10px;
   margin: auto;
 }
 
-.create-lifegoal-btn {
+.red-btn {
   margin: 0.5em;
   margin-left: 83%;
   width: fit-content;
@@ -180,7 +205,7 @@ $border-radius: 10px;
   // align-items: center;
 }
 
-.create-lifegoal-btn:hover {
+.red-btn:hover {
   cursor: pointer;
   background: rgb(221, 111, 111);
   box-shadow: 0px 0px 3px rgb(224, 153, 153);
@@ -256,6 +281,42 @@ $border-radius: 10px;
   width: 100%;
   height: 100%;
   background-color: brown;
+}
+
+// Create post
+
+.create-post-cont {
+  width: 80%;
+  margin: auto;
+  border-radius: calc(#{$border-radius/2});
+  box-shadow: 1px 1px 3px gray;
+}
+
+.create-post-form {
+  width: 70%;
+  margin: auto;
+}
+
+.form-row {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-post-btn {
+  margin: 0.5em auto;
+  width: fit-content;
+  padding: 0.75em;
+  border-radius: $border-radius;
+  background: brown;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-post-btn:hover {
+  cursor: pointer;
 }
 // Dashboard
 .dashboard-cont {

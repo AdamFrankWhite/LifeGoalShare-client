@@ -25,9 +25,10 @@ function ReplyInput(props) {
   };
 
   return (
-    <div>
+    <div className="reply-cont">
+      <h3>Your Reply: </h3>
       <textarea onChange={(e) => setNewComment(e.target.value)}></textarea>
-      <button onClick={() => addComment()}>Send</button>
+      <span onClick={() => addComment()}>Send</span>
     </div>
   );
 }

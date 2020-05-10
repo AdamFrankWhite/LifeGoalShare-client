@@ -1,8 +1,14 @@
-import { GET_ALL_LIFEGOALS, GET_USER_LIFEGOALS, ADD_NEW_POST } from "../types";
+import {
+  GET_ALL_LIFEGOALS,
+  GET_USER_LIFEGOALS,
+  GET_FOLLOWER_IMAGES,
+  ADD_NEW_POST,
+} from "../types";
 
 const initialState = {
   lifegoalsData: [],
   userLifeGoals: [],
+  followerImages: [],
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +22,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userLifeGoals: action.payload,
+      };
+    case GET_FOLLOWER_IMAGES:
+      return {
+        ...state,
+        followerImages: action.payload,
       };
     // case ADD_NEW_POST:
     // return {

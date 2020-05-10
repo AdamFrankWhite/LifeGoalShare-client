@@ -15,14 +15,8 @@ class Navbar extends Component {
   }
   componentWillMount() {
     if (window.localStorage.getItem("access_token")) {
-      console.log(window.localStorage.getItem("access_token"));
       this.props.authenticateUserOnRefresh(); //error - on refresh, you are logging in without username/password
-
-      // console.log(this.props.user);
     }
-    // axios.get("http://localhost:5000/lifegoals/").then((data) => {
-    //   this.setState({ lifeGoals: data.data });
-    // });
   }
   logOut() {
     this.props.logOut();

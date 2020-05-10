@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 function Comment(props) {
   const [toggleReplyInput, setToggleReplyInput] = useState(false);
-  console.log(props.parents);
   // Check if comment deleted
   let author =
     props.comment.comment !== "DELETED" ? props.comment.author + ": " : "";

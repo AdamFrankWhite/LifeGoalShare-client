@@ -65,7 +65,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.user);
     const lifeGoalRoutes = this.props.lifegoals.map((lifeGoal) => {
       return (
         <Route
@@ -78,7 +77,7 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <Router history={history}>
+        <Router>
           {this.handleRedirect()}
           <NavBar logout={this.handleLogout} />
           <div className="home-container">
@@ -119,7 +118,7 @@ class App extends Component {
               </Route>
               <Route path="/signup" component={SignUp} />
             </Switch>
-          </div>{" "}
+          </div>
         </Router>
       </div>
     );
@@ -127,7 +126,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     user: state.user,
     lifegoals: state.lifegoals.lifegoalsData,

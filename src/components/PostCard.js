@@ -53,7 +53,6 @@ export default function PostCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(props.post);
 
   let match = useRouteMatch();
 

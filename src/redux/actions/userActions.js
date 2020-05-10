@@ -43,7 +43,6 @@ export const getUserData = () => (dispatch) => {
       //try removing header here, as think is set above
     })
     .then((res) => {
-      console.log(res.data, "boo");
       dispatch({ type: SET_USER, payload: res.data });
     });
 };

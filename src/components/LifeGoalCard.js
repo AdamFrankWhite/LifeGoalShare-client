@@ -66,7 +66,11 @@ function LifeGoalCard(props) {
 
   // get follower images
   let followers = props.data.followers.map((follower) => (
-    <img className="followerImageMini" src={follower.followerImage}></img>
+    //grab static src from store
+    <img
+      className="followerImageMini"
+      src={props.lifegoals.followerImages[follower.followerID]}
+    ></img>
     //TODO - request image url for each follower - axios.get/image/userID
   ));
   return (

@@ -1,7 +1,8 @@
 import React from "react";
 import Comment from "./Comment";
-
-export default function LifeGoalPost(props) {
+import { connect } from "react-redux";
+import { deletePost } from "../redux/actions/lifegoalActions";
+function LifeGoalPost(props) {
   console.log(props.data);
 
   let commentData = props.data.comments;
@@ -37,7 +38,7 @@ export default function LifeGoalPost(props) {
     return (
       <Comment
         comment={comment}
-        margin={{ marginLeft: marginSize, marginRight: "1em" }}
+        margin={{ marginLeft: marginSize }}
         postID={props.data.postID}
         parents={parents}
       />
@@ -48,8 +49,26 @@ export default function LifeGoalPost(props) {
       <h1 className="post-title">{props.data.postName}</h1>
       <h2 className="post-content">{props.data.postContent}</h2>
       <h3>Comments: </h3>
-      {comments}
-      <button onClick={() => console.log(props.lifeGoalID)}>New Comment</button>
+      <div className="comment-cont">{comments}</div>
+      <button
+        onClick={() =>
+          props.deletePost({
+            lifeGoalID: props.lifeGoalID,
+            postID: props.data.postID,
+          })
+        }
+      >
+        Delete Post
+      </button>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+const mapActionsToProps = {
+  deletePost,
+};
+export default connect(mapStateToProps, mapActionsToProps)(LifeGoalPost);

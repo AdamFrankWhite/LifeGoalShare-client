@@ -16,7 +16,6 @@ import CreateLifeGoal from "./CreateLifeGoal";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 function Home(props) {
   let match = useRouteMatch();
-  console.log(match.url);
   useEffect(
     () => props.getAllLifeGoals(),
     []
@@ -47,7 +46,7 @@ function Home(props) {
   });
   return (
     <div className="home-container">
-      <Link className="create-lifegoal-btn" to={"/lifegoal/add"}>
+      <Link className="red-btn" to={"/lifegoal/add"}>
         Create LifeGoal
         <AddCircleOutlineIcon />
       </Link>

@@ -20,6 +20,7 @@ import lifegoalMainDefaultImage from "../assets/lifegoalMainDefaultImage.jpg";
 
 //Redux
 import { connect } from "react-redux";
+import { getFollowerImages } from "../redux/actions/lifegoalActions";
 import Comment from "./Comment";
 // Material UI
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -69,7 +70,7 @@ function LifeGoalMain(props) {
     return (
       <Comment
         comment={comment}
-        margin={{ marginLeft: marginSize, marginRight: "1em" }}
+        margin={{ marginLeft: marginSize }}
         lifeGoalID={props.data._id}
         parents={parents}
       />
@@ -127,8 +128,8 @@ function LifeGoalMain(props) {
         {followers.length} {followers.length == 1 ? "Follower:" : "Followers:"}{" "}
         {followers}
       </Button>
-      <div></div>
-      {toggleComments && comments}
+
+      <div className="comment-cont">{toggleComments && comments}</div>
     </div>
   );
   return (
@@ -153,26 +154,31 @@ function LifeGoalMain(props) {
         <h2>{props.data.lifeGoalDescription}</h2>
       </div>
       {/* Conditional render checks if author of lifeGoal */}
-      {props.user.userData.profile.handle === props.data.createdBy.handle && (
-        // <Link to="/lifegoal/add">
+      {props.user.userData.profile.handle === props.data.createdBy.handle &&
+      !showAddPostForm ? (
         <span
           onClick={() => {
-            !showAddPostForm && setShowAddPostForm(true);
+            setShowAddPostForm(true);
           }}
-          className="create-lifegoal-btn"
+          className="red-btn"
         >
           New Post
           <AddCircleOutlineIcon />
         </span>
-        // </Link>
+      ) : (
+        <span
+          onClick={() => {
+            setShowAddPostForm(false);
+          }}
+          className="red-btn"
+        >
+          Cancel
+        </span>
       )}
       {showAddPostForm && (
         <div>
           <AddPostForm data={props.data} showForm={showAddPostForm} />
-          <span
-            onClick={() => setShowAddPostForm(false)}
-            className="create-lifegoal-btn"
-          >
+          <span onClick={() => setShowAddPostForm(false)} className="red-btn">
             Cancel
             <RemoveIcon />
           </span>
@@ -195,4 +201,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LifeGoalMain);
+const mapActionsToProps = {
+  getFollowerImages,
+};
+export default connect(mapStateToProps, mapActionsToProps)(LifeGoalMain);

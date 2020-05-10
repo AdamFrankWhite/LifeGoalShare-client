@@ -121,7 +121,7 @@ function CreateLifeGoal(props) {
           <p>{initialPostContent}</p>
           <button onClick={() => setStepCount(stepCount - 1)}>Back</button>
           <span
-            className="create-lifegoal-btn"
+            className="red-btn"
             onClick={() => {
               console.log(props.user.userData.profile.handle);
               props.postNewLifeGoal(newLifeGoalData);
