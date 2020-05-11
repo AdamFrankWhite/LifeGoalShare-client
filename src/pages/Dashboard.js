@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Comment from "../components/Comment";
 import Profile from "../components/dashboardTabs/Profile";
-import LifeGoalCard from "../components/LifeGoalCard";
+import Messages from "../components/dashboardTabs/Messages";
 import LifeGoalMain from "../components/LifeGoalMain";
 import MyLifeGoals from "../components/dashboardTabs/MyLifeGoals";
 import MyComments from "../components/dashboardTabs/MyComments";
@@ -17,6 +17,7 @@ import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import WallpaperIcon from "@material-ui/icons/Wallpaper";
 import CommentIcon from "@material-ui/icons/Comment";
+import MessageIcon from "@material-ui/icons/Message";
 function Dashboard(props) {
   // const myComments = this.props.myComments
   //   .sort((a, b) => (a.comment.createdAt < b.comment.createdAt ? 1 : -1))
@@ -27,9 +28,7 @@ function Dashboard(props) {
   //       createdAt={comment.comment.createdAt}
   //     />
   //   ));
-  console.log(props.lifegoals);
   const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
-    console.log(lifeGoal._id);
     return (
       <Route
         path={`/lifegoals/${lifeGoal._id}`}
@@ -50,6 +49,11 @@ function Dashboard(props) {
       icon: <WallpaperIcon className="icon-padding" />,
       path: "lifegoals",
       name: "My LifeGoals",
+    },
+    {
+      icon: <MessageIcon className="icon-padding" />,
+      path: "messages",
+      name: "My Messages",
     },
     {
       icon: <CommentIcon className="icon-padding" />,
@@ -85,6 +89,7 @@ function Dashboard(props) {
         <main className="dashboard-main">
           <Route exact={true} path="/dashboard" component={DashboardMain} />
           <Route path="/dashboard/profile" component={Profile} />
+          <Route path="/dashboard/messages" component={Messages} />
           <Route path="/dashboard/comments" component={MyComments} />
           <Route path="/dashboard/settings" component={Settings} />
           <Route path="/dashboard/lifegoals" component={MyLifeGoals} />

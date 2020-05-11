@@ -403,10 +403,13 @@ $border-radius: 10px;
 }
 
 .followerImageMini {
-  width: 50px;
-  height: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
   margin: 0 2px;
   display: inline-block;
+  border-radius: 50%;
+  border: 1px black solid;
 }
 
 // LifeGoalMain

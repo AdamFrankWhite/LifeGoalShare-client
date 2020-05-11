@@ -9,6 +9,15 @@ import {
 import axios from "axios";
 import history from "../../history";
 
+export const signupUser = (userData) => (dispatch) => {
+  console.log("working");
+  axios.post("http://localhost:5000/users/signup", userData).then((res) => {
+    console.log(res);
+    // dispatch(
+    //   loginUser({ username: userData.username, password: userData.password })
+    // );
+  });
+};
 export const loginUser = (userData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios

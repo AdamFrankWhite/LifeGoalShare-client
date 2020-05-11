@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { signupUser } from "../redux/actions/userActions";
+import { connect } from "react-redux";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,9 +49,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+function SignUp(props) {
   const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    console.log(password, confirmPassword);
+
+    let userData = {
+      username,
+      email,
+      password,
+      confirmPassword,
+    };
+    props.signupUser(userData);
+    console.log(userData);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,7 +79,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSignUp} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -70,7 +90,9 @@ export default function SignUp() {
                 fullWidth
                 id="username"
                 label="Username"
+                value={username}
                 autoFocus
+                onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>
 
@@ -83,6 +105,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -95,6 +119,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,9 +130,11 @@ export default function SignUp() {
                 fullWidth
                 name="confirmPassword"
                 label="Confirm Password"
-                type="confirmPassword"
+                type="password"
                 id="confirmPassword"
                 autoComplete="current-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -140,3 +168,14 @@ export default function SignUp() {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+const mapActionsToProps = {
+  signupUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(SignUp);

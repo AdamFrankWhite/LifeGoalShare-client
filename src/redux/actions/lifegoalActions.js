@@ -15,7 +15,6 @@ export const getAllLifeGoals = () => (dispatch) => {
     .then((data) => {
       dispatch({ type: GET_ALL_LIFEGOALS, payload: data.data });
       let lifeGoalIDs = data.data.map((lifeGoal) => lifeGoal._id);
-      console.log("LifeGoalIDs: ", lifeGoalIDs);
       dispatch(getFollowerImages({ lifeGoalIDs: lifeGoalIDs }));
     })
     .catch((err) => {
@@ -90,12 +89,10 @@ export const deletePost = (postData) => (dispatch) => {
     });
 };
 export const getFollowerImages = (lifeGoals) => (dispatch) => {
-  console.log("Boo:", lifeGoals);
   axios
     .post("http://localhost:5000/lifegoals/followers", lifeGoals)
 
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: GET_FOLLOWER_IMAGES, payload: res.data });
     });
 };
