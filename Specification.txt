@@ -10,6 +10,7 @@ issue with reducer overwriting state of another reducer - the issue was in the r
 issue of undefined localStorage object on refresh - turned out, was calling login on refresh, without username/password, in doing so, overwriting token with undefined. fixed by creating new action for authenticateOnRefresh
 issue of not having access to store in main app component - solution was to raise provider to the index.js
 issue of routes not matching to paths - issue was having multiple routers in app - only need one!! then it doesn't matter where you declare your routes - declare them where you want your component
+issue of images loading with broken link until state is populated - solution - set loading state on image to display none
 
 history - not needed, shipped with react-router, i believe
 TODO: 

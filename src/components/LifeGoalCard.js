@@ -113,6 +113,7 @@ function LifeGoalCard(props) {
             <Link to={`user/${props.data.createdBy.userID}`}>
               <img
                 className="followerImageMini"
+                style={props.user.loading ? { display: "none" } : {}}
                 alt={`${props.data.createdBy.handle} 's profile image'`}
                 src={props.lifegoals.userImages[props.data.createdBy.userID]}
               ></img>
