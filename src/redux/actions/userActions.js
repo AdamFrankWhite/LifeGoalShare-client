@@ -3,6 +3,7 @@ import {
   SET_AUTHENTICATION,
   SET_UNAUTHENTICATED,
   LOADING_UI,
+  GET_USER_MESSAGES,
   CLEAR_ERRORS,
   SET_ERRORS,
 } from "../types";
@@ -43,6 +44,7 @@ export const loginUser = (userData) => (dispatch) => {
 };
 
 export const getUserData = () => (dispatch) => {
+  dispatch(getUserMessages());
   console.log(window.localStorage.getItem("access_token"));
   axios
     .get("http://localhost:5000/users/profile/get", {
@@ -53,6 +55,18 @@ export const getUserData = () => (dispatch) => {
     })
     .then((res) => {
       dispatch({ type: SET_USER, payload: res.data });
+    });
+};
+
+export const getUserMessages = () => (dispatch) => {
+  axios
+    .get("http://localhost:5000/messages/get", {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((res) => {
+      dispatch({ type: GET_USER_MESSAGES, payload: res.data });
     });
 };
 

@@ -118,6 +118,59 @@ $border-radius: 10px;
   padding: 1.5em 0;
 }
 
+// Message
+
+.messages-tab {
+  margin: auto;
+  .messages-tab-head {
+    margin: auto;
+    text-align: center;
+  }
+  .message-tab-group {
+    width: fit-content;
+    display: inline-block;
+    margin: auto;
+    border-radius: $border-radius;
+    color: maroon;
+    padding: 0.35em;
+    :hover {
+      cursor: pointer;
+    }
+    .tab-selected {
+      text-decoration: underline;
+    }
+  }
+}
+.message {
+  padding: 0.75em 1.25em;
+  border: maroon 1px solid;
+  border-radius: calc(#{$border-radius/3});
+  margin: 0.5em auto;
+  box-shadow: 1px 1px 4px gray;
+  .message-user {
+    font-weight: bold;
+    font-size: 0.75em;
+  }
+
+  .message-time {
+    font-size: 0.75em;
+    font-style: italic;
+  }
+
+  .message-content {
+    text-align: left;
+    margin: 0.25em auto;
+  }
+}
+
+// .message-tab {
+//   color: white;
+// }
+
+.message-tab:hover {
+  text-shadow: 0px 0px 1px maroon;
+}
+
 // LifeGoal Card
 
 .lifegoal-card {
@@ -126,18 +179,19 @@ $border-radius: 10px;
   border-radius: $border-radius;
 }
 
-.comment-card {
-  width: 80%;
-  margin: 1em auto;
-  border: 2px black solid;
-  border-radius: $border-radius;
-  box-shadow: 1px 1px 4px lightgray;
-}
+// .comment-card {
+//   width: 80%;
+//   margin: 1em auto;
+//   border: 2px black solid;
+//   border-radius: $border-radius;
+//   box-shadow: 1px 1px 4px lightgray;
+// }
 .comment-cont {
   width: 70%;
   margin: auto;
 }
-.goal-comment-cont {
+.goal-comment-cont,
+.message {
   padding: 0.75em 1.25em;
   border: maroon 1px solid;
   border-radius: calc(#{$border-radius/3});

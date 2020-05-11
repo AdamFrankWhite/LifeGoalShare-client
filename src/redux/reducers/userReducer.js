@@ -7,6 +7,7 @@ import {
   SET_ERRORS,
   SUCCESS_RES,
   FAIL_RES,
+  GET_USER_MESSAGES,
 } from "../types";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   loading: false,
   success_res: false,
   fail_res: false,
+  messages: [],
 };
 
 //NOTE - if dispatch is called without case for it, it will use default and reset state between dispatches
@@ -35,6 +37,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userData: action.payload,
+      };
+    case GET_USER_MESSAGES:
+      return {
+        ...state,
+        messages: action.payload,
       };
     case LOADING_UI:
       return { ...state, loading: action.payload };

@@ -17,7 +17,7 @@ import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import WallpaperIcon from "@material-ui/icons/Wallpaper";
 import CommentIcon from "@material-ui/icons/Comment";
-import MessageIcon from "@material-ui/icons/Message";
+import MailIcon from "@material-ui/icons/Mail";
 function Dashboard(props) {
   // const myComments = this.props.myComments
   //   .sort((a, b) => (a.comment.createdAt < b.comment.createdAt ? 1 : -1))
@@ -51,7 +51,7 @@ function Dashboard(props) {
       name: "My LifeGoals",
     },
     {
-      icon: <MessageIcon className="icon-padding" />,
+      icon: <MailIcon className="icon-padding" />,
       path: "messages",
       name: "My Messages",
     },
