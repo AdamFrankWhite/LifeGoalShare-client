@@ -4,6 +4,7 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_UI,
   GET_USER_MESSAGES,
+  GET_ALL_USERS,
   CLEAR_ERRORS,
   SET_ERRORS,
 } from "../types";
@@ -28,6 +29,7 @@ export const loginUser = (userData) => (dispatch) => {
         console.log("Successful login");
         dispatch({ type: SET_AUTHENTICATION, payload: res.data.token });
         dispatch({ type: LOADING_UI, payload: false });
+        dispatch(getAllUsers());
 
         // dispatch({ type: CLEAR_ERRORS });
         window.localStorage.setItem("access_token", res.data.token);
@@ -70,12 +72,24 @@ export const getUserMessages = () => (dispatch) => {
     });
 };
 
+export const getAllUsers = () => (dispatch) => {
+  axios
+    .get("http://localhost:5000/users/", {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((res) => {
+      dispatch({ type: GET_ALL_USERS, payload: res.data });
+    });
+};
 export const authenticateUserOnRefresh = () => (dispatch) => {
   dispatch({
     type: SET_AUTHENTICATION,
     payload: window.localStorage.getItem("access_token"),
   });
   dispatch(getUserData());
+  dispatch(getAllUsers());
 };
 
 export const logOut = () => (dispatch) => {
