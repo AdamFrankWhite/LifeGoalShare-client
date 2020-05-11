@@ -86,7 +86,7 @@ function LifeGoalMain(props) {
     return (
       <img
         className="followerImageMini"
-        src={props.lifegoals.followerImages[follower.followerID]}
+        src={props.lifegoals.userImages[follower.followerID]}
       ></img>
     );
     //TODO - request image url for each follower - axios.get/image/userID

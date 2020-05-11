@@ -8,10 +8,11 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 //Redux
 import { connect } from "react-redux";
-// import { viewLifeGoal } from "../redux/actions/lifegoalActions";
+import { followLifeGoal } from "../redux/actions/lifegoalActions";
 import Comment from "./Comment";
 
 function LifeGoalCard(props) {
@@ -63,36 +64,34 @@ function LifeGoalCard(props) {
     //grab static src from store
     <img
       className="followerImageMini"
-      src={props.lifegoals.followerImages[follower.followerID]}
+      src={props.lifegoals.userImages[follower.followerID]}
     ></img>
     //TODO - request image url for each follower - axios.get/image/userID
   ));
+  console.log(props);
   return (
     <Card className="lifegoal-card">
       <CardActionArea>
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            // onClick={() => props.goToLifeGoal()}
-          >
+          <Typography gutterBottom variant="h5" component="h2">
             {props.data.lifeGoalName} <i>by {props.data.createdBy.handle}</i>
             <img
               className="followerImageMini"
               alt={`${props.data.createdBy.handle} 's profile image'`}
-              src={props.lifegoals.followerImages[props.data.createdBy.userID]}
+              src={props.lifegoals.userImages[props.data.createdBy.userID]}
             ></img>
+            <span
+              className="follow-btn"
+              onClick={() => props.followLifeGoal(props.data._id)}
+            >
+              <StarBorderIcon />
+              <span>Follow</span>
+            </span>
           </Typography>
           <Typography variant="body1" color="textSecondary" component="p">
             {props.data.lifeGoalDescription}
           </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            // onClick={() => props.goToPost()}
-          >
+          <Typography variant="body2" color="textSecondary" component="p">
             Latest post: {posts[0]}
           </Typography>
         </CardContent>
@@ -105,7 +104,6 @@ function LifeGoalCard(props) {
           <Button
             onClick={() => {
               console.log(props.data._id);
-              // viewLifeGoal(props.data._id)
             }}
             size="small"
             color="primary"
@@ -144,4 +142,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LifeGoalCard);
+const mapActionsToProps = {
+  followLifeGoal,
+};
+export default connect(mapStateToProps, mapActionsToProps)(LifeGoalCard);

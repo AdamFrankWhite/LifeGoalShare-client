@@ -8,7 +8,7 @@ import {
 const initialState = {
   lifegoalsData: [],
   userLifeGoals: [],
-  followerImages: [],
+  userImages: [],
 };
 
 export default function (state = initialState, action) {
@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
     case GET_PROFILE_IMAGES:
       return {
         ...state,
-        followerImages: action.payload,
+        userImages: action.payload,
       };
     // case ADD_NEW_POST:
     // return {

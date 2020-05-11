@@ -96,3 +96,19 @@ export const getProfileImages = (lifeGoals) => (dispatch) => {
       dispatch({ type: GET_PROFILE_IMAGES, payload: res.data });
     });
 };
+
+export const followLifeGoal = (lifeGoalID) => (dispatch) => {
+  axios
+    .post(
+      "http://localhost:5000/lifegoals/follow",
+      { lifeGoalID },
+      {
+        headers: {
+          Authorization: window.localStorage.getItem("access_token"),
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res.data);
+    });
+};

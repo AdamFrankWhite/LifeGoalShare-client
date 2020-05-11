@@ -239,6 +239,21 @@ $border-radius: 10px;
     width: 70%;
   }
 }
+
+.follow-btn {
+  border: 1px solid black;
+  color: navy;
+  border-radius: $border-radius;
+  padding: 0.25em;
+  font-size: 0.7em;
+  float: right;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  :hover {
+    cursor: pointer;
+  }
+}
 //Home
 
 .home-container {
