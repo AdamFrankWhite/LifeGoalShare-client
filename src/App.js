@@ -21,6 +21,7 @@ import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import Post from "./pages/Post";
+import User from "./pages/User";
 import CreateLifeGoal from "./pages/CreateLifeGoal";
 import LifeGoalMain from "./components/LifeGoalMain";
 //History
@@ -75,6 +76,16 @@ class App extends Component {
         />
       );
     });
+
+    const userRoutes = this.props.user.users.map((user) => {
+      return (
+        <Route
+          path={`/user/${user._id}`}
+          render={(props) => <User {...props} data={user} />}
+        />
+      );
+    });
+
     return (
       <div className="App">
         <Router>
@@ -83,6 +94,7 @@ class App extends Component {
 
           <Switch>
             {lifeGoalRoutes}
+            {userRoutes}
             <Route
               path="/lifegoal/add"
               render={(props) => <CreateLifeGoal {...props} />}
