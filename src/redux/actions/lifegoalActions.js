@@ -112,3 +112,19 @@ export const followLifeGoal = (lifeGoalID) => (dispatch) => {
       console.log(res.data);
     });
 };
+
+export const unfollowLifeGoal = (lifeGoalID) => (dispatch) => {
+  axios
+    .put(
+      "http://localhost:5000/lifegoals/unfollow",
+      { lifeGoalID },
+      {
+        headers: {
+          Authorization: window.localStorage.getItem("access_token"),
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res.data);
+    });
+};

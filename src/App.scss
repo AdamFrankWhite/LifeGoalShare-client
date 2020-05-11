@@ -240,12 +240,12 @@ $border-radius: 10px;
   }
 }
 
-.follow-btn {
+.follow-btn,
+.unfollow-btn {
   border: 1px solid black;
   color: navy;
   border-radius: $border-radius;
   padding: 0.25em;
-  font-size: 0.7em;
   float: right;
   display: flex;
   // justify-content: center;
@@ -253,6 +253,12 @@ $border-radius: 10px;
   :hover {
     cursor: pointer;
   }
+}
+.follow-btn {
+  font-size: 0.7em;
+}
+.unfollow-btn {
+  font-size: 0.6em;
 }
 //Home
 

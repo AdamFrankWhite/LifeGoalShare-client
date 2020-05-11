@@ -8,11 +8,15 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
+import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 
 //Redux
 import { connect } from "react-redux";
-import { followLifeGoal } from "../redux/actions/lifegoalActions";
+import {
+  followLifeGoal,
+  unfollowLifeGoal,
+} from "../redux/actions/lifegoalActions";
 import Comment from "./Comment";
 
 function LifeGoalCard(props) {
@@ -68,6 +72,37 @@ function LifeGoalCard(props) {
     ></img>
     //TODO - request image url for each follower - axios.get/image/userID
   ));
+
+  //Check if already followed
+  const alreadyFollowed = props.data.followers.filter(
+    (follower) => follower.followerID === props.user.userData._id
+  );
+  console.log(alreadyFollowed);
+
+  //Follow button
+  const FollowButton = () => {
+    return (
+      <span
+        className="follow-btn"
+        onClick={() => props.followLifeGoal(props.data._id)}
+      >
+        <AccessibilityNewIcon />
+        <span>Follow</span>
+      </span>
+    );
+  };
+  //Unfollow button
+  const UnfollowButton = () => {
+    return (
+      <span
+        className="unfollow-btn"
+        onClick={() => props.unfollowLifeGoal(props.data._id)}
+      >
+        <IndeterminateCheckBoxIcon />
+        <span>Unfollow</span>
+      </span>
+    );
+  };
   console.log(props);
   return (
     <Card className="lifegoal-card">
@@ -80,13 +115,8 @@ function LifeGoalCard(props) {
               alt={`${props.data.createdBy.handle} 's profile image'`}
               src={props.lifegoals.userImages[props.data.createdBy.userID]}
             ></img>
-            <span
-              className="follow-btn"
-              onClick={() => props.followLifeGoal(props.data._id)}
-            >
-              <StarBorderIcon />
-              <span>Follow</span>
-            </span>
+            {/* Check if followed */}
+            {alreadyFollowed.length > 0 ? <UnfollowButton /> : <FollowButton />}
           </Typography>
           <Typography variant="body1" color="textSecondary" component="p">
             {props.data.lifeGoalDescription}
@@ -144,5 +174,6 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   followLifeGoal,
+  unfollowLifeGoal,
 };
 export default connect(mapStateToProps, mapActionsToProps)(LifeGoalCard);
