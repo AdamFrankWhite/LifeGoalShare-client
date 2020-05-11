@@ -487,6 +487,23 @@ $border-radius: 10px;
   border: 1px black solid;
 }
 
+//User
+
+.user-cont {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  h2 {
+    margin-top: 0;
+  }
+  .user-profile-pic {
+    border: black 5px solid;
+    border-radius: 50%;
+    width: 10%;
+    height: auto;
+  }
+}
+
 // LifeGoalMain
 
 .lifegoal-main-cont {
