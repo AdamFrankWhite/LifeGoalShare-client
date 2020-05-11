@@ -12,7 +12,6 @@ import axios from "axios";
 import history from "../../history";
 
 export const signupUser = (userData) => (dispatch) => {
-  console.log("working");
   axios.post("http://localhost:5000/users/signup", userData).then((res) => {
     console.log(res);
     // dispatch(
@@ -21,19 +20,20 @@ export const signupUser = (userData) => (dispatch) => {
   });
 };
 export const loginUser = (userData) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  // dispatch({ type: LOADING_UI, payload: true });
   axios
     .post("http://localhost:5000/users/login", userData)
     .then((res) => {
       if (res.data.token) {
         console.log("Successful login");
         dispatch({ type: SET_AUTHENTICATION, payload: res.data.token });
-        dispatch({ type: LOADING_UI, payload: false });
-        dispatch(getAllUsers());
 
+        dispatch(getAllUsers());
         // dispatch({ type: CLEAR_ERRORS });
         window.localStorage.setItem("access_token", res.data.token);
         dispatch(getUserData());
+
+        // dispatch({ type: LOADING_UI, payload: false });
 
         // history.push(`/dashboard`);
       } else if (res.data.status === 401) {
@@ -84,12 +84,14 @@ export const getAllUsers = () => (dispatch) => {
     });
 };
 export const authenticateUserOnRefresh = () => (dispatch) => {
+  dispatch({ type: LOADING_UI, payload: true });
   dispatch({
     type: SET_AUTHENTICATION,
     payload: window.localStorage.getItem("access_token"),
   });
   dispatch(getUserData());
   dispatch(getAllUsers());
+  // dispatch({ type: LOADING_UI, payload: false });
 };
 
 export const logOut = () => (dispatch) => {
@@ -100,7 +102,7 @@ export const logOut = () => (dispatch) => {
 export const uploadImage = (formData, file) => (dispatch) => {
   console.log(file);
 
-  dispatch({ type: LOADING_UI });
+  // dispatch({ type: LOADING_UI });
 
   axios
     .post("http://localhost:5000/users/profile/upload", formData, {

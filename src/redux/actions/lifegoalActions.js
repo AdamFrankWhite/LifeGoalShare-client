@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const getAllLifeGoals = () => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  // dispatch({ type: LOADING_UI });
   axios
     .get("http://localhost:5000/lifegoals/")
     .then((data) => {
@@ -23,7 +23,7 @@ export const getAllLifeGoals = () => (dispatch) => {
 };
 
 export const getUserLifeGoals = (userHandle) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  // dispatch({ type: LOADING_UI });
   axios
     .get(`http://localhost:5000/lifegoals/${userHandle}`, {
       headers: {
@@ -40,7 +40,7 @@ export const getUserLifeGoals = (userHandle) => (dispatch) => {
 };
 
 export const postNewLifeGoal = (formData) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  // dispatch({ type: LOADING_UI });
   console.log(formData);
   axios
     .post("http://localhost:5000/lifegoals/add", formData, {
@@ -64,7 +64,7 @@ export const addNewPost = (postData) => (dispatch) => {
     })
     .then((res) => {
       console.log(res.data);
-      dispatch({ type: LOADING_UI, payload: false });
+      // dispatch({ type: LOADING_UI, payload: false });
       dispatch({ type: SUCCESS_RES, payload: true });
 
       // dispatch({type: , payload: res.data})
@@ -94,6 +94,7 @@ export const getProfileImages = (lifeGoals) => (dispatch) => {
 
     .then((res) => {
       dispatch({ type: GET_PROFILE_IMAGES, payload: res.data });
+      dispatch({ type: LOADING_UI, payload: false });
     });
 };
 
