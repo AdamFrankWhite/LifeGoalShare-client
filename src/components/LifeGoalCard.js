@@ -16,8 +16,6 @@ import Comment from "./Comment";
 
 function LifeGoalCard(props) {
   const [toggleComments, setToggleComments] = useState(false);
-  console.log(props);
-  // getPost() {}
   let commentData = props.data.comments;
 
   //Group child comments with parents, reordering comment array

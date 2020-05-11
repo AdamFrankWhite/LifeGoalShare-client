@@ -84,7 +84,10 @@ function LifeGoalMain(props) {
   let followers = props.data.followers.map((follower) => {
     console.log(follower);
     return (
-      <img className="followerImageMini" src={follower.followerImage}></img>
+      <img
+        className="followerImageMini"
+        src={props.lifegoals.followerImages[follower.followerID]}
+      ></img>
     );
     //TODO - request image url for each follower - axios.get/image/userID
   });
