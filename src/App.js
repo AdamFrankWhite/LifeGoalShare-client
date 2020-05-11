@@ -80,45 +80,40 @@ class App extends Component {
         <Router>
           {this.handleRedirect()}
           <NavBar logout={this.handleLogout} />
-          <div className="home-container">
-            <Switch>
-              {lifeGoalRoutes}
-              <Route
-                path="/lifegoal/add"
-                render={(props) => <CreateLifeGoal {...props} />}
-              />
-              <Route exact path="/" render={(props) => <Home {...props} />} />
-              {/* Protected routes */}
-              <Route path="/logout">
-                <Redirect to="/"></Redirect>
-              </Route>
-              <Route
-                path="/dashboard"
-                render={(props) => (
-                  <Dashboard
-                    {...props}
-                    getComments={this.getComments}
-                    myComments={this.state.userComments}
-                  />
-                )}
-              />
 
-              <Route
-                path="/post"
-                exact
-                render={(props) => <Post {...props} />}
-              />
+          <Switch>
+            {lifeGoalRoutes}
+            <Route
+              path="/lifegoal/add"
+              render={(props) => <CreateLifeGoal {...props} />}
+            />
+            <Route exact path="/" render={(props) => <Home {...props} />} />
+            {/* Protected routes */}
+            <Route path="/logout">
+              <Redirect to="/"></Redirect>
+            </Route>
+            <Route
+              path="/dashboard"
+              render={(props) => (
+                <Dashboard
+                  {...props}
+                  getComments={this.getComments}
+                  myComments={this.state.userComments}
+                />
+              )}
+            />
 
-              <Route path="/login">
-                {this.props.user.authenticated ? (
-                  <Redirect to="/dashboard" />
-                ) : (
-                  <LogIn />
-                )}
-              </Route>
-              <Route path="/signup" component={SignUp} />
-            </Switch>
-          </div>
+            <Route path="/post" exact render={(props) => <Post {...props} />} />
+
+            <Route path="/login">
+              {this.props.user.authenticated ? (
+                <Redirect to="/dashboard" />
+              ) : (
+                <LogIn />
+              )}
+            </Route>
+            <Route path="/signup" component={SignUp} />
+          </Switch>
         </Router>
       </div>
     );

@@ -1,7 +1,7 @@
 import {
   GET_ALL_LIFEGOALS,
   GET_USER_LIFEGOALS,
-  GET_FOLLOWER_IMAGES,
+  GET_PROFILE_IMAGES,
   LOADING_UI,
   SUCCESS_RES,
   FAIL_RES,
@@ -15,7 +15,7 @@ export const getAllLifeGoals = () => (dispatch) => {
     .then((data) => {
       dispatch({ type: GET_ALL_LIFEGOALS, payload: data.data });
       let lifeGoalIDs = data.data.map((lifeGoal) => lifeGoal._id);
-      dispatch(getFollowerImages({ lifeGoalIDs: lifeGoalIDs }));
+      dispatch(getProfileImages({ lifeGoalIDs: lifeGoalIDs }));
     })
     .catch((err) => {
       // dispatch({ type: SET_ERRORS, payload: err.response.data });
@@ -88,11 +88,11 @@ export const deletePost = (postData) => (dispatch) => {
       console.log(res.data);
     });
 };
-export const getFollowerImages = (lifeGoals) => (dispatch) => {
+export const getProfileImages = (lifeGoals) => (dispatch) => {
   axios
-    .post("http://localhost:5000/lifegoals/followers", lifeGoals)
+    .post("http://localhost:5000/lifegoals/images", lifeGoals)
 
     .then((res) => {
-      dispatch({ type: GET_FOLLOWER_IMAGES, payload: res.data });
+      dispatch({ type: GET_PROFILE_IMAGES, payload: res.data });
     });
 };

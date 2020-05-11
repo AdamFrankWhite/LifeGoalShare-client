@@ -24,14 +24,7 @@ function Home(props) {
 
   const lifeGoals = props.lifegoals
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-    .map((lifeGoal) => (
-      <LifeGoalCard
-        key={lifeGoal._id}
-        data={lifeGoal}
-        goToPost={props.goToPost}
-        goToLifeGoal={props.goToLifeGoal}
-      />
-    ));
+    .map((lifeGoal) => <LifeGoalCard key={lifeGoal._id} data={lifeGoal} />);
 
   const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
     // console.log(lifeGoal._id);

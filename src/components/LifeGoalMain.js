@@ -20,7 +20,7 @@ import lifegoalMainDefaultImage from "../assets/lifegoalMainDefaultImage.jpg";
 
 //Redux
 import { connect } from "react-redux";
-import { getFollowerImages } from "../redux/actions/lifegoalActions";
+import { getProfileImages } from "../redux/actions/lifegoalActions";
 import Comment from "./Comment";
 // Material UI
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -81,10 +81,13 @@ function LifeGoalMain(props) {
   let posts = props.data.posts.map((post) => <PostCard post={post} />);
 
   // get follower images
-  let followers = props.data.followers.map((follower) => (
-    <img className="followerImageMini" src={follower.followerImage}></img>
+  let followers = props.data.followers.map((follower) => {
+    console.log(follower);
+    return (
+      <img className="followerImageMini" src={follower.followerImage}></img>
+    );
     //TODO - request image url for each follower - axios.get/image/userID
-  ));
+  });
   //get lifeGoalBannerImage
   let lifeGoalMainImage = props.lifeGoalImage
     ? `url(${props.lifeGoalImage})`
@@ -202,6 +205,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
-  getFollowerImages,
+  getProfileImages,
 };
 export default connect(mapStateToProps, mapActionsToProps)(LifeGoalMain);

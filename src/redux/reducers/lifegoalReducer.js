@@ -1,7 +1,7 @@
 import {
   GET_ALL_LIFEGOALS,
   GET_USER_LIFEGOALS,
-  GET_FOLLOWER_IMAGES,
+  GET_PROFILE_IMAGES,
   ADD_NEW_POST,
 } from "../types";
 
@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
         ...state,
         userLifeGoals: action.payload,
       };
-    case GET_FOLLOWER_IMAGES:
+    case GET_PROFILE_IMAGES:
       return {
         ...state,
         followerImages: action.payload,

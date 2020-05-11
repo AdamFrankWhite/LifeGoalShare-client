@@ -15,12 +15,8 @@ import { connect } from "react-redux";
 import Comment from "./Comment";
 
 function LifeGoalCard(props) {
-  const viewLifeGoal = () => {};
-
   const [toggleComments, setToggleComments] = useState(false);
-
-  //TO DO - hook to get profile images
-  const followLifeGoal = () => {};
+  console.log(props);
   // getPost() {}
   let commentData = props.data.comments;
 
@@ -84,6 +80,11 @@ function LifeGoalCard(props) {
             // onClick={() => props.goToLifeGoal()}
           >
             {props.data.lifeGoalName} <i>by {props.data.createdBy.handle}</i>
+            <img
+              className="followerImageMini"
+              alt={`${props.data.createdBy.handle} 's profile image'`}
+              src={props.lifegoals.followerImages[props.data.createdBy.userID]}
+            ></img>
           </Typography>
           <Typography variant="body1" color="textSecondary" component="p">
             {props.data.lifeGoalDescription}
