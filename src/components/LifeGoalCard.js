@@ -110,11 +110,13 @@ function LifeGoalCard(props) {
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {props.data.lifeGoalName} <i>by {props.data.createdBy.handle}</i>
-            <img
-              className="followerImageMini"
-              alt={`${props.data.createdBy.handle} 's profile image'`}
-              src={props.lifegoals.userImages[props.data.createdBy.userID]}
-            ></img>
+            <Link to={`user/${props.data.createdBy.userID}`}>
+              <img
+                className="followerImageMini"
+                alt={`${props.data.createdBy.handle} 's profile image'`}
+                src={props.lifegoals.userImages[props.data.createdBy.userID]}
+              ></img>
+            </Link>
             {/* Check if followed */}
             {alreadyFollowed.length > 0 ? <UnfollowButton /> : <FollowButton />}
           </Typography>
