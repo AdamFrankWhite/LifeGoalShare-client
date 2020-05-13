@@ -66,10 +66,12 @@ function LifeGoalCard(props) {
   // get follower images
   let followers = props.data.followers.map((follower) => (
     //grab static src from store
-    <img
-      className="followerImageMini"
-      src={props.lifegoals.userImages[follower.followerID]}
-    ></img>
+    <Link to={`user/${follower.followerID}`}>
+      <img
+        className="followerImageMini"
+        src={props.lifegoals.userImages[follower.followerID]}
+      ></img>
+    </Link>
     //TODO - request image url for each follower - axios.get/image/userID
   ));
 
@@ -77,7 +79,7 @@ function LifeGoalCard(props) {
   const alreadyFollowed = props.data.followers.filter(
     (follower) => follower.followerID === props.user.userData._id
   );
-  console.log(alreadyFollowed);
+  console.log(props);
 
   //Follow button
   const FollowButton = () => {
@@ -103,7 +105,6 @@ function LifeGoalCard(props) {
       </span>
     );
   };
-  console.log(props);
   return (
     <Card className="lifegoal-card">
       <CardActionArea>
