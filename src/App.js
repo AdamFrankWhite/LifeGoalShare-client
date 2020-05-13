@@ -20,7 +20,8 @@ import Post from "./pages/Post";
 import User from "./pages/User";
 import CreateLifeGoal from "./pages/CreateLifeGoal";
 import LifeGoalMain from "./components/LifeGoalMain";
-
+//History
+import history from "./history";
 //Socketio
 import socketIOClient from "socket.io-client";
 
@@ -30,9 +31,9 @@ function App(props) {
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-    socket.on("FromAPI", (data) => {
-      setResponse(data);
-      console.log(response);
+
+    socket.on("message", (message) => {
+      console.log(message);
     });
   }, []);
   const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
@@ -57,7 +58,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
         <NavBar />
 
         <Switch>
