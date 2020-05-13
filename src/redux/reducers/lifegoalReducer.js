@@ -3,12 +3,14 @@ import {
   GET_USER_LIFEGOALS,
   GET_PROFILE_IMAGES,
   ADD_NEW_POST,
+  SET_TEMP_POST,
 } from "../types";
 
 const initialState = {
   lifegoalsData: [],
   userLifeGoals: [],
   userImages: [],
+  tempPostData: "",
 };
 
 export default function (state = initialState, action) {
@@ -27,6 +29,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userImages: action.payload,
+      };
+    case SET_TEMP_POST:
+      return {
+        ...state,
+        tempPostData: action.payload,
       };
     // case ADD_NEW_POST:
     // return {

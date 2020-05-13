@@ -33,6 +33,7 @@ function LifeGoalMain(props) {
   const [imageFile, setImageFile] = useState(
     props.user.userData.profile.profileImageUrl
   );
+
   const [showAddPostForm, setShowAddPostForm] = useState(false);
 
   const [toggleComments, setToggleComments] = useState(true);
@@ -183,7 +184,7 @@ function LifeGoalMain(props) {
       )}
       {showAddPostForm && (
         <div>
-          <AddPostForm data={props.data} showForm={showAddPostForm} />
+          <AddPostForm data={props.data} showForm={setShowAddPostForm} />
           <span onClick={() => setShowAddPostForm(false)} className="red-btn">
             Cancel
             <RemoveIcon />

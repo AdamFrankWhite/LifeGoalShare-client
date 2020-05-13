@@ -5,6 +5,7 @@ import {
   LOADING_UI,
   SUCCESS_RES,
   FAIL_RES,
+  SET_TEMP_POST,
 } from "../types";
 import axios from "axios";
 
@@ -66,12 +67,11 @@ export const addNewPost = (postData) => (dispatch) => {
       console.log(res.data);
       // dispatch({ type: LOADING_UI, payload: false });
       dispatch({ type: SUCCESS_RES, payload: true });
-
-      // dispatch({type: , payload: res.data})
+      //Update state.lifegoals
+      dispatch(getAllLifeGoals());
     })
     .catch((err) => {
       dispatch({ type: FAIL_RES, payload: true });
-      console.log(err);
     });
 };
 
@@ -85,7 +85,8 @@ export const deletePost = (postData) => (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      //Update state.lifegoals
+      dispatch(getAllLifeGoals());
     });
 };
 export const getProfileImages = (lifeGoals) => (dispatch) => {
@@ -132,4 +133,27 @@ export const unfollowLifeGoal = (lifeGoalID) => (dispatch) => {
       dispatch(getAllLifeGoals());
       console.log("boo");
     });
+};
+
+export const postImageUpload = (formData, file) => (dispatch) => {
+  console.log(file);
+  // dispatch({ type: LOADING_UI });
+
+  axios
+    .post("http://localhost:5000/lifegoals/post/image", formData, {
+      headers: {
+        Authorization: window.localStorage.getItem("access_token"),
+      },
+    })
+    .then((res) => {
+      console.log(res.data.clientFileUrl);
+      //update - NEED TO CHANGE - DON'T UPDATE ALL LIFEGOALS, JUSTTHE ONE YOU HAVE CHANGED?
+      dispatch(getAllLifeGoals());
+      dispatch({ type: SET_TEMP_POST, payload: res.data.clientFileUrl });
+      // update profile image property
+      // user.profile.profileImageUrl = res.data.clientFileUrl;
+      //update appstate
+      // dispatch({ type: SET_USER, payload: user });
+    })
+    .catch((err) => console.log(err));
 };

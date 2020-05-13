@@ -20,10 +20,8 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import Button from "@material-ui/core/Button";
 
-import postImageDefault from "../assets/postImageDefault.jpg";
+import defaultPostImage from "../assets/defaultPostImage.jpg";
 import moment from "moment";
-
-import LifeGoalPost from "./LifeGoalPost";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -86,7 +84,7 @@ export default function PostCard(props) {
       </Button>
       <CardMedia
         className={classes.media}
-        image={props.post.postImage ? props.post.postImage : postImageDefault}
+        image={props.post.postImage ? props.post.postImage : defaultPostImage}
         title="Paella dish"
       />
       <CardContent>

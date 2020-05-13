@@ -14,6 +14,7 @@ export const GET_ALL_LIFEGOALS = "GET_ALL_LIFEGOALS";
 export const GET_USER_LIFEGOALS = "GET_USER_LIFEGOALS";
 export const ADD_NEW_POST = "ADD_NEW_POST";
 export const GET_PROFILE_IMAGES = "GET_PROFILE_IMAGES";
+export const SET_TEMP_POST = "SET_TEMP_POST";
 
 // CONTINUE - video 6:19
 
