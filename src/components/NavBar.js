@@ -6,7 +6,6 @@ import {
   logOut,
   authenticateUserOnRefresh,
 } from "../redux/actions/userActions";
-const logo = require("../assets/LifeGoalSHARE.png");
 
 class Navbar extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class Navbar extends Component {
     return (
       <nav>
         <div className="navbar-container">
-          <img alt="logo" src={logo} className="nav-logo" />
+          <img alt="logo" src="assets/LifeGoalSHARE.png" className="nav-logo" />
           <div className="btn-group">
             {this.props.loggedIn && (
               <NavLink to="/dashboard">

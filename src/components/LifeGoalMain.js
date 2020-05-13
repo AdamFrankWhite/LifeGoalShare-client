@@ -16,7 +16,6 @@ import Button from "@material-ui/core/Button";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Typography from "@material-ui/core/Typography";
 // Images
-import lifegoalMainDefaultImage from "../assets/lifegoalMainDefaultImage.jpg";
 
 //Redux
 import { connect } from "react-redux";
@@ -94,7 +93,7 @@ function LifeGoalMain(props) {
   //get lifeGoalBannerImage
   let lifeGoalMainImage = props.lifeGoalImage
     ? `url(${props.lifeGoalImage})`
-    : `url(${lifegoalMainDefaultImage})`;
+    : `url("../assets/lifegoalMainDefaultImage.jpg")`;
 
   // console.log(props.user, props.data);
 
