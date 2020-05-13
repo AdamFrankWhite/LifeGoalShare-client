@@ -10,7 +10,7 @@ const initialState = {
   lifegoalsData: [],
   userLifeGoals: [],
   userImages: [],
-  tempPostData: "",
+  tempPostData: "/uploads/postImages/defaultPostImage.jpg",
 };
 
 export default function (state = initialState, action) {
