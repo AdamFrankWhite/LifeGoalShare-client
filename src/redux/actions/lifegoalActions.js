@@ -111,6 +111,8 @@ export const followLifeGoal = (lifeGoalID) => (dispatch) => {
     )
     .then((res) => {
       console.log(res.data);
+      dispatch(getAllLifeGoals());
+      console.log("ahh");
     });
 };
 
@@ -127,5 +129,7 @@ export const unfollowLifeGoal = (lifeGoalID) => (dispatch) => {
     )
     .then((res) => {
       console.log(res.data);
+      dispatch(getAllLifeGoals());
+      console.log("boo");
     });
 };
