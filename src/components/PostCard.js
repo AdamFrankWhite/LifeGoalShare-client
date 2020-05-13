@@ -20,6 +20,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import Button from "@material-ui/core/Button";
 
+import postImageDefault from "../assets/postImageDefault.jpg";
 import moment from "moment";
 
 import LifeGoalPost from "./LifeGoalPost";
@@ -85,11 +86,7 @@ export default function PostCard(props) {
       </Button>
       <CardMedia
         className={classes.media}
-        image={
-          props.post.postImage
-            ? props.post.postImage
-            : "../assets/postImageDefault.jpg"
-        }
+        image={props.post.postImage ? props.post.postImage : postImageDefault}
         title="Paella dish"
       />
       <CardContent>

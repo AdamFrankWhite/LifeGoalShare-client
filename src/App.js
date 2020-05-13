@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
-  withRouter,
 } from "react-router-dom";
 import "./App.scss";
 
 // Redux
 import { connect } from "react-redux";
-// import { Provider } from "react-redux";
-
-import axios from "axios";
 
 //Pages
 import Home from "./pages/Home";
@@ -24,15 +20,21 @@ import Post from "./pages/Post";
 import User from "./pages/User";
 import CreateLifeGoal from "./pages/CreateLifeGoal";
 import LifeGoalMain from "./components/LifeGoalMain";
-//History
-import history from "./history";
 
 //Socketio
-
 import socketIOClient from "socket.io-client";
 
 function App(props) {
-  const socketio = socketIOClient();
+  const ENDPOINT = "http://127.0.0.1:5000";
+  const [response, setResponse] = useState("");
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("FromAPI", (data) => {
+      setResponse(data);
+      console.log(response);
+    });
+  }, []);
   const lifeGoalRoutes = props.lifegoals.map((lifeGoal) => {
     return (
       <Route
